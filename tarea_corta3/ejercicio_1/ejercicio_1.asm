@@ -1,4 +1,4 @@
-; 
+; Jerson Bonilla y Jose Guerra
 section .data
 vector1: dw 2, -3, 5         ; Vectores de entrada
 vector2: dw 1, 2, 3
