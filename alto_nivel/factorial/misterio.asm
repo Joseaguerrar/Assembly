@@ -1,0 +1,34 @@
+section .note.GNU-stack noalloc noexec nowrite progbits
+
+section .text
+global misterio
+misterio:
+    push rdi
+    call _misterio
+    pop rax
+    ret
+
+_misterio:
+    push rbp
+    mov rbp, rsp
+    mov rax, [rbp+16]
+
+    cmp rax, 0
+    jle _t 
+
+    dec rax
+    push rax
+    call _misterio
+    mov rax, [rbp+16]
+    pop rbx
+    
+    imul rax, rbx
+    mov [rbp+16], rax
+    jmp _s 
+
+    _t:
+        mov qword [rbp+16], 1
+
+    _s:
+        pop rbp
+        ret
