@@ -1,0 +1,42 @@
+# Nombre del ejecutable
+EXECUTABLE = productoCruz
+
+# Archivos fuente
+ASM_SRC = producto_cruz.asm
+CPP_SRC = producto_cruz.cpp
+
+# Archivos objeto
+ASM_OBJ = producto_cruz_asm.o
+CPP_OBJ = producto_cruz_cpp.o
+
+# Compilador y ensamblador
+NASM = nasm
+GXX = g++
+
+# Opciones de compilación
+NASM_FLAGS = -g -f elf64
+GXX_FLAGS = -g -c -no-pie
+LINK_FLAGS = -g -no-pie
+
+# Regla por defecto
+compile: $(EXECUTABLE)
+
+# Regla para generar el ejecutable
+$(EXECUTABLE): $(ASM_OBJ) $(CPP_OBJ)
+	$(GXX) $(LINK_FLAGS) -o $(EXECUTABLE) $(CPP_OBJ) $(ASM_OBJ)
+
+# Regla para compilar el ensamblador
+$(ASM_OBJ): $(ASM_SRC)
+	$(NASM) $(NASM_FLAGS) -o $(ASM_OBJ) $(ASM_SRC)
+
+# Regla para compilar el código C++
+$(CPP_OBJ): $(CPP_SRC)
+	$(GXX) $(GXX_FLAGS) -o $(CPP_OBJ) $(CPP_SRC)
+
+# Limpieza de archivos objeto y ejecutable
+clean:
+	rm -f $(ASM_OBJ) $(CPP_OBJ) $(EXECUTABLE)
+
+# Compilar, limpiar y ejecutar
+run: clean compile
+	./$(EXECUTABLE)
