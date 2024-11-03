@@ -19,46 +19,49 @@ _start:
     syscall
 
 intercambiar_cuadrantes:
+    ; Cargamos la dirección base de la matriz en rdx para minimizar accesos a memoria
+    lea rdx, [matriz] 
+
     ; Intercambiar el cuadrante superior izquierdo con el inferior derecho
-    mov rax, [matriz + 0*2]   ; Usamos rax en lugar de ax para evitar dependencia falsa
-    mov rbx, [matriz + 10*2]  ; Usamos rbx en lugar de bx para evitar dependencia falsa
-    mov [matriz + 0*2], rbx
-    mov [matriz + 10*2], rax
+    mov rax, [rdx + 0*2]   ; rax en lugar de ax para evitar dependencia falsa
+    mov rbx, [rdx + 10*2]  ; rbx en lugar de bx para evitar dependencia falsa
+    mov [rdx + 0*2], rbx
+    mov [rdx + 10*2], rax
 
-    mov rax, [matriz + 1*2]
-    mov rbx, [matriz + 11*2]
-    mov [matriz + 1*2], rbx
-    mov [matriz + 11*2], rax
+    mov rax, [rdx + 1*2]
+    mov rbx, [rdx + 11*2]
+    mov [rdx + 1*2], rbx
+    mov [rdx + 11*2], rax
 
-    mov rax, [matriz + 2*2]
-    mov rbx, [matriz + 8*2]
-    mov [matriz + 2*2], rbx
-    mov [matriz + 8*2], rax
+    mov rax, [rdx + 2*2]
+    mov rbx, [rdx + 8*2]
+    mov [rdx + 2*2], rbx
+    mov [rdx + 8*2], rax
 
-    mov rax, [matriz + 3*2]
-    mov rbx, [matriz + 9*2]
-    mov [matriz + 3*2], rbx
-    mov [matriz + 9*2], rax
+    mov rax, [rdx + 3*2]
+    mov rbx, [rdx + 9*2]
+    mov [rdx + 3*2], rbx
+    mov [rdx + 9*2], rax
 
     ; Intercambiar el cuadrante superior derecho con el inferior izquierdo
-    mov rax, [matriz + 4*2]
-    mov rbx, [matriz + 12*2]
-    mov [matriz + 4*2], rbx
-    mov [matriz + 12*2], rax
+    mov rax, [rdx + 4*2]
+    mov rbx, [rdx + 12*2]
+    mov [rdx + 4*2], rbx
+    mov [rdx + 12*2], rax
 
-    mov rax, [matriz + 5*2]
-    mov rbx, [matriz + 13*2]
-    mov [matriz + 5*2], rbx
-    mov [matriz + 13*2], rax
+    mov rax, [rdx + 5*2]
+    mov rbx, [rdx + 13*2]
+    mov [rdx + 5*2], rbx
+    mov [rdx + 13*2], rax
 
-    mov rax, [matriz + 6*2]
-    mov rbx, [matriz + 14*2]
-    mov [matriz + 6*2], rbx
-    mov [matriz + 14*2], rax
+    mov rax, [rdx + 6*2]
+    mov rbx, [rdx + 14*2]
+    mov [rdx + 6*2], rbx
+    mov [rdx + 14*2], rax
 
-    mov rax, [matriz + 7*2]
-    mov rbx, [matriz + 15*2]
-    mov [matriz + 7*2], rbx
-    mov [matriz + 15*2], rax
+    mov rax, [rdx + 7*2]
+    mov rbx, [rdx + 15*2]
+    mov [rdx + 7*2], rbx
+    mov [rdx + 15*2], rax
 
     ret
