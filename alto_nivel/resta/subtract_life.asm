@@ -1,3 +1,6 @@
+;Declaración de la función en ensamblador
+;extern "C" int64_t subtract_life(int64_t life, int64_t damage);
+
 section .text
 global subtract_life
 

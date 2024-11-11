@@ -1,3 +1,5 @@
+;Declaración de la función ensamblador
+;extern "C" int random_number()
 section .text
     global random_number
 
