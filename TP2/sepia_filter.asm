@@ -1,113 +1,107 @@
 section .data
-    sepia_r_coeff dq 393, 769, 189  ; Coeficientes para el canal R en formato entero (ej.: 0.393 -> 393)
-    sepia_g_coeff dq 349, 686, 168  ; Coeficientes para el canal G en formato entero
-    sepia_b_coeff dq 272, 534, 131  ; Coeficientes para el canal B en formato entero
-    max_value dd 255                ; Valor máximo de un canal de color
+red_coef1:    dd 0.393
+red_coef2:    dd 0.769
+red_coef3:    dd 0.189
+green_coef1:  dd 0.349
+green_coef2:  dd 0.686
+green_coef3:  dd 0.168
+blue_coef1:   dd 0.272
+blue_coef2:   dd 0.534
+blue_coef3:   dd 0.131
 
 section .text
 global apply_sepia_filter
 apply_sepia_filter:
     ; Argumentos:
-    ; - rdi: puntero a los datos de la imagen
-    ; - rsi: ancho de la imagen
-    ; - rdx: alto de la imagen
+    ; - rdi: puntero a la imagen completa (intercalado BGR)
+    ; - rsi: tamaño total de la imagen en bytes (debería ser image.data.size())
 
     ; Guardar registros usados
     push rsi
     push rdi
-    push rdx
-    push rbx
     push rcx
-    push r8
-    push r9
-    push r10
-    push r11
 
-    ; Desplazar el puntero 54 bytes para saltar el encabezado BMP
-    add rdi, 54
+    mov rcx, rsi             ; rcx = número total de bytes a procesar
 
-    ; Calcular el total de píxeles
-    mov rcx, rsi
-    imul rcx, rdx            ; rcx = ancho * alto, total de píxeles
-    mov r8, rcx              ; r8 = número total de píxeles
+    ; Cargar coeficientes en registros xmm
+    movss xmm6, dword [red_coef1]
+    movss xmm7, dword [red_coef2]
+    movss xmm8, dword [red_coef3]
+    movss xmm9, dword [green_coef1]
+    movss xmm10, dword [green_coef2]
+    movss xmm11, dword [green_coef3]
+    movss xmm12, dword [blue_coef1]
+    movss xmm13, dword [blue_coef2]
+    movss xmm14, dword [blue_coef3]
 
 .loop_start:
-    ; Comprobar si hemos terminado de procesar todos los píxeles
-    test r8, r8
-    jz .end_loop
+    cmp rcx, 0
+    jle .end_loop
 
-    ; Cargar los valores BGR del píxel actual en enteros
-    movzx eax, byte [rdi]       ; cargar B en eax
-    mov edx, eax                ; Copiar B a edx para usar después
-    movzx ebx, byte [rdi + 1]   ; cargar G en ebx
-    mov ecx, ebx                ; Copiar G a ecx para usar después
-    movzx esi, byte [rdi + 2]   ; cargar R en esi
+    ; Cargar los valores originales de azul, verde, rojo en SSE
+    movzx eax, byte [rdi]        ; azul
+    cvtsi2ss xmm0, eax           ; azul en xmm0
+    movzx eax, byte [rdi + 1]    ; verde
+    cvtsi2ss xmm1, eax           ; verde en xmm1
+    movzx eax, byte [rdi + 2]    ; rojo
+    cvtsi2ss xmm2, eax           ; rojo en xmm2
 
-    ; Calcular el nuevo valor R' para el canal rojo
-    mov eax, esi                ; Cargar R
-    imul eax, dword [sepia_r_coeff]   ; R * 393
-    mov r9d, eax                ; Guardar resultado temporal en r9d
-    mov eax, ebx                ; Cargar G
-    imul eax, dword [sepia_r_coeff + 4] ; G * 769
-    add r9d, eax                ; Acumular en r9d
-    mov eax, edx                ; Cargar B
-    imul eax, dword [sepia_r_coeff + 8] ; B * 189
-    add r9d, eax                ; Acumular en r9d
-    shr r9d, 10                 ; Dividir entre 1024 para aproximar el decimal
-    cmp r9d, dword [max_value]
-    jle .skip_saturate_r
-    mov r9d, dword [max_value]
-.skip_saturate_r:
-    mov byte [rdi + 2], r9b     ; Guardar el nuevo R en la imagen
+    ; Calcular nuevo valor del canal rojo usando la fórmula de sepia con SSE
+    movss xmm3, xmm2             ; xmm3 = rojo
+    mulss xmm3, xmm6             ; xmm3 *= 0.393
+    movss xmm4, xmm1             ; xmm4 = verde
+    mulss xmm4, xmm7             ; xmm4 *= 0.769
+    movss xmm5, xmm0             ; xmm5 = azul
+    mulss xmm5, xmm8             ; xmm5 *= 0.189
+    addss xmm3, xmm4             ; xmm3 = rojo * 0.393 + verde * 0.769
+    addss xmm3, xmm5             ; xmm3 += azul * 0.189
+    cvtss2si eax, xmm3           ; convertir a entero
+    cmp eax, 255
+    jle .skip_red_saturate
+    mov eax, 255
+.skip_red_saturate:
+    mov byte [rdi + 2], al       ; guardar nuevo rojo
 
-    ; Calcular el nuevo valor G' para el canal verde
-    mov eax, esi                ; Cargar R
-    imul eax, dword [sepia_g_coeff]   ; R * 349
-    mov r10d, eax               ; Guardar resultado temporal en r10d
-    mov eax, ebx                ; Cargar G
-    imul eax, dword [sepia_g_coeff + 4] ; G * 686
-    add r10d, eax               ; Acumular en r10d
-    mov eax, edx                ; Cargar B
-    imul eax, dword [sepia_g_coeff + 8] ; B * 168
-    add r10d, eax               ; Acumular en r10d
-    shr r10d, 10                ; Dividir entre 1024 para aproximar el decimal
-    cmp r10d, dword [max_value]
-    jle .skip_saturate_g
-    mov r10d, dword [max_value]
-.skip_saturate_g:
-    mov byte [rdi + 1], r10b    ; Guardar el nuevo G en la imagen
+    ; Calcular nuevo valor del canal verde usando la fórmula de sepia con SSE
+    movss xmm3, xmm2             ; xmm3 = rojo
+    mulss xmm3, xmm9             ; xmm3 *= 0.349
+    movss xmm4, xmm1             ; xmm4 = verde
+    mulss xmm4, xmm10            ; xmm4 *= 0.686
+    movss xmm5, xmm0             ; xmm5 = azul
+    mulss xmm5, xmm11            ; xmm5 *= 0.168
+    addss xmm3, xmm4             ; xmm3 = rojo * 0.349 + verde * 0.686
+    addss xmm3, xmm5             ; xmm3 += azul * 0.168
+    cvtss2si eax, xmm3           ; convertir a entero
+    cmp eax, 255
+    jle .skip_green_saturate
+    mov eax, 255
+.skip_green_saturate:
+    mov byte [rdi + 1], al       ; guardar nuevo verde
 
-    ; Calcular el nuevo valor B' para el canal azul
-    mov eax, esi                ; Cargar R
-    imul eax, dword [sepia_b_coeff]   ; R * 272
-    mov r11d, eax               ; Guardar resultado temporal en r11d
-    mov eax, ebx                ; Cargar G
-    imul eax, dword [sepia_b_coeff + 4] ; G * 534
-    add r11d, eax               ; Acumular en r11d
-    mov eax, edx                ; Cargar B
-    imul eax, dword [sepia_b_coeff + 8] ; B * 131
-    add r11d, eax               ; Acumular en r11d
-    shr r11d, 10                ; Dividir entre 1024 para aproximar el decimal
-    cmp r11d, dword [max_value]
-    jle .skip_saturate_b
-    mov r11d, dword [max_value]
-.skip_saturate_b:
-    mov byte [rdi], r11b        ; Guardar el nuevo B en la imagen
+    ; Calcular nuevo valor del canal azul usando la fórmula de sepia con SSE
+    movss xmm3, xmm2             ; xmm3 = rojo
+    mulss xmm3, xmm12            ; xmm3 *= 0.272
+    movss xmm4, xmm1             ; xmm4 = verde
+    mulss xmm4, xmm13            ; xmm4 *= 0.534
+    movss xmm5, xmm0             ; xmm5 = azul
+    mulss xmm5, xmm14            ; xmm5 *= 0.131
+    addss xmm3, xmm4             ; xmm3 = rojo * 0.272 + verde * 0.534
+    addss xmm3, xmm5             ; xmm3 += azul * 0.131
+    cvtss2si eax, xmm3           ; convertir a entero
+    cmp eax, 255
+    jle .skip_blue_saturate
+    mov eax, 255
+.skip_blue_saturate:
+    mov byte [rdi], al           ; guardar nuevo azul
 
-    ; Avanzar al siguiente píxel
-    add rdi, 3
-    dec r8
+    ; Avanzar al siguiente conjunto de canales (BGR)
+    add rdi, 3                   ; avanzar 3 bytes para el siguiente píxel
+    sub rcx, 3                   ; reducir el contador de bytes en 3
     jmp .loop_start
 
 .end_loop:
     ; Restaurar registros
-    pop r11
-    pop r10
-    pop r9
-    pop r8
     pop rcx
-    pop rbx
-    pop rdx
-    pop rsi
     pop rdi
+    pop rsi
     ret
