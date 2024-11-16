@@ -3,7 +3,9 @@
 #include <vector>
 #include <cstdint>
 #include <stdexcept>
+#include <filesystem>
 
+using namespace std;
 // Prototipo de la función ensambladora
 extern "C" void apply_sepia_filter(uint8_t* data, size_t length);
 
@@ -20,7 +22,7 @@ BMPImage load_bmp(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
 
     if (!file) {
-        throw std::runtime_error("No se puede abrir el archivo BMP");
+        throw std::runtime_error("No se puede abrir el archivo BMP: " + filename);
     }
 
     // Leer el encabezado BMP (54 bytes)
@@ -44,7 +46,7 @@ void save_bmp(const std::string& filename, const BMPImage& image) {
     std::ofstream file(filename, std::ios::binary);
 
     if (!file) {
-        throw std::runtime_error("No se puede guardar el archivo BMP");
+        throw std::runtime_error("No se puede guardar el archivo BMP: " + filename);
     }
 
     // Escribir el encabezado BMP original
@@ -56,15 +58,25 @@ void save_bmp(const std::string& filename, const BMPImage& image) {
 
 int main() {
     try {
-        BMPImage image = load_bmp("entrada.bmp");
+        const std::string input_dir = "entradas";
+        const std::string output_dir = "salidas";
+
+        // Crear directorios de salida si no existen
+        std::filesystem::create_directories(output_dir);
+
+        // Archivo de entrada y salida
+        const std::string input_file = input_dir + "/entrada.bmp";
+        const std::string output_file = output_dir + "/salida_sepia.bmp";
+
+        BMPImage image = load_bmp(input_file);
 
         // Llamar a la función ensambladora para aplicar el filtro sepia
         apply_sepia_filter(image.data.data(), image.data.size());
 
         // Guardar la imagen de salida
-        save_bmp("salida_sepia.bmp", image);
+        save_bmp(output_file, image);
 
-        std::cout << "Filtro sepia aplicado y guardado en salida_sepia.bmp\n";
+        std::cout << "Filtro sepia aplicado y guardado en " << output_file << "\n";
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
         return 1;
