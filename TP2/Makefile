@@ -8,21 +8,34 @@ ASM = nasm
 CFLAGS = -Wall -g
 ASMFLAGS = -f elf64
 
-# Objetivo final
-all: filtros
+# Carpetas
+BIN_DIR = bin
+BUILD_DIR = build
 
-# Crear el ejecutable `filtros` a partir de los archivos objeto
-filtros: main.o sepia_filter.o
-	$(CC) $(CFLAGS) -no-pie -o filtros main.o sepia_filter.o
+# Nombre del ejecutable
+EXECUTABLE = filtros
+
+# Objetivo final
+all: sepia
+
+# Crear carpetas si no existen
+$(BIN_DIR) $(BUILD_DIR):
+	mkdir -p $@
+
+# Crear el ejecutable en la carpeta bin
+sepia: $(BIN_DIR) $(BUILD_DIR) $(BUILD_DIR)/main.o $(BUILD_DIR)/sepia_filter.o
+	$(CC) $(CFLAGS) -no-pie -o $(BIN_DIR)/$(EXECUTABLE) $(BUILD_DIR)/main.o $(BUILD_DIR)/sepia_filter.o
 
 # Compilar el archivo fuente en C++
-main.o: main.cpp
-	$(CC) $(CFLAGS) -c main.cpp -o main.o
+$(BUILD_DIR)/main.o: main.cpp | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c main.cpp -o $(BUILD_DIR)/main.o
 
 # Ensamblar el archivo de filtro sepia en ensamblador
-sepia_filter.o: sepia_filter.asm
-	$(ASM) $(ASMFLAGS) sepia_filter.asm -o sepia_filter.o
+$(BUILD_DIR)/sepia_filter.o: sepia_filter.asm | $(BUILD_DIR)
+	$(ASM) $(ASMFLAGS) sepia_filter.asm -o $(BUILD_DIR)/sepia_filter.o
 
 # Eliminar archivos intermedios y ejecutables para limpieza
 clean:
-	rm -f *.o filtros
+	rm -rf $(BUILD_DIR) $(BIN_DIR)
+
+.PHONY: all sepia clean
