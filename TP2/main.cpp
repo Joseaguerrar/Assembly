@@ -93,16 +93,16 @@ void open_image(const std::string &filename) {
     return;
   }
 
-// Esto si es Windows
-#ifdef _WIN32
-  system(("start " + filename).c_str());
-// Esto si es Apple
-#elif __APPLE__
-  system(("open " + filename).c_str());
-// Si no, entonces suponer que es Linux
-#else
-  system(("xdg-open " + filename).c_str());
-#endif
+  // Esto si es Windows
+  #ifdef _WIN32
+    system(("start " + filename).c_str());
+  // Esto si es Apple
+  #elif __APPLE__
+    system(("open " + filename).c_str());
+  // Si no, entonces suponer que es Linux
+  #else
+    system(("xdg-open " + filename).c_str());
+  #endif
 }
 
 /// @brief Método principal del programa
