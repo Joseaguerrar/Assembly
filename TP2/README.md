@@ -64,4 +64,4 @@ Las imágenes de prueba fueron obtenidas de los siguientes enlaces:
 * entrada1.bmp: https://filesampleshub.com/format/image/bmp
 * entrada2.bmp: https://samples-files.com/sample-bmp-file/
 * entrada3.bmp: https://filesamples.com/formats/bmp
-*
+* entrada4.bmp: https://people.math.sc.edu/Burkardt/data/bmp/bmp.html
