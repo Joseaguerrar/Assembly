@@ -1,7 +1,7 @@
 # Filtros para imágenes BMP
 Este proyecto aplica un filtros a imágenes BMP utilizando una combinación de código en C++ y ensamblador (ASM). Es una herramienta básica que demuestra el manejo de archivos de imagen BMP y cómo realizar operaciones de procesamiento de imágenes.
 ## Objetivo de la tarea
-De los principales objetivos de esta tarea es aplicar los conocimientos aprendidos sobre los registros sse y avx para aprovechar las instrucciones de empaquetamiento de datos que ofrecen estos registros. Además, aplicar optimizaciones en el código para mejorar el rendimiento. En este caso se buscaban 5 optimizaciones:
+De los principales objetivos de esta tarea es aplicar los conocimientos aprendidos sobre los registros sse para aprovechar las instrucciones de empaquetamiento de datos que ofrecen estos registros. Además, aplicar optimizaciones en el código para mejorar el rendimiento. En este caso se buscaban 5 optimizaciones:
 * Guardar direcciones de memoria en registros sse para no tener que pasar accediendo a memoria.
 * Optimizar las secciones de los ciclos de código que se repiten muchas veces.
 
