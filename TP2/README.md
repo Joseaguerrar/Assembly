@@ -58,3 +58,10 @@ Límites: La implementación asume imágenes BMP con un encabezado de 54 bytes y
 Error Handling: El programa genera mensajes de error claros si:
 No encuentra el archivo de entrada.
 No puede escribir el archivo de salida.
+
+# Referencias
+Las imágenes de prueba fueron obtenidas de los siguientes enlaces:
+* entrada1.bmp: https://filesampleshub.com/format/image/bmp
+* entrada2.bmp: https://samples-files.com/sample-bmp-file/
+* entrada3.bmp: https://filesamples.com/formats/bmp
+*
