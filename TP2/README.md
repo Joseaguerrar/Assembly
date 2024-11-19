@@ -1,16 +1,28 @@
 # README - Filtros para imágenes BMP
 Este proyecto aplica un filtros a imágenes BMP utilizando una combinación de código en C++ y ensamblador (ASM). Es una herramienta básica que demuestra el manejo de archivos de imagen BMP y cómo realizar operaciones de procesamiento de imágenes.
+## Objetivo de la tarea
+De los principales objetivos de esta tarea es aplicar los conocimientos aprendidos sobre los registros sse y avx para aprovechar las instrucciones de empaquetamiento de datos que ofrecen estos registros. Además, aplicar optimizaciones en el código para mejorar el rendimiento. En este caso se buscaban 5 optimizaciones:
+* Guardar direcciones de memoria en registros sse para no tener que pasar accediendo a memoria.
+* Optimizar las secciones de los ciclos de código que se repiten muchas veces.
 
-## Requisitos:
+### Requisitos:
 * Compilador C++: g++ (compatible con C++17 o superior).
-* Ensamblador: nasm.
+* Ensamblador: nasm., en caso de no tenerlo:
+                                 sudo apt update
+                                 sudo apt install nasm            
 * Sistema operativo: Linux o cualquier sistema compatible con herramientas GNU.
+* Dependiendo del sistema puede ser necesario instalar los paquetes para ver por    pantalla las imágenes generadas: sudo apt update
+                                 sudo apt install xdg-utils
+* En caso de que xdg-utils no funciones, puede ser necesario instalar eog:
+                                 sudo apt update
+                                 sudo apt install eog
+
 
 Estructura del proyecto:
 Carpeta `entradas/`: Contiene las imagenes a procesar
 Carpeta `salidas/`: Se guarda la imagen con 4 filtros aplicados (sepia, escala de grises, negativo y binarizado)
 
-## Estructura del proyecto:
+### Estructura del proyecto:
 
 ```plaintext
 .
@@ -31,7 +43,7 @@ Carpeta `salidas/`: Se guarda la imagen con 4 filtros aplicados (sepia, escala d
 └── README.md           # Este archivo (Manual de uso).
 ```
 
-## **Compilación y ejecución**
+### **Compilación y ejecución**
 1. **Preparación**
 Asegúrese de tener los archivos BMP válidos la carpeta `entradas/`.
 2. **Compilación**
