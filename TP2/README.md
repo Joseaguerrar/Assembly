@@ -16,7 +16,7 @@ De los principales objetivos de esta tarea es aplicar los conocimientos aprendid
 sudo apt update
 sudo apt install xdg-utils
 ```
-* En caso de que xdg-utils no funciones, puede ser necesario instalar eog:
+* En caso de que xdg-utils no funcione, puede ser necesario instalar eog:
 ```bash
 sudo apt update
 sudo apt install eog
