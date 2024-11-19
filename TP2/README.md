@@ -11,11 +11,11 @@ De los principales objetivos de esta tarea es aplicar los conocimientos aprendid
                                  sudo apt update
                                  sudo apt install nasm            
 * Sistema operativo: Linux o cualquier sistema compatible con herramientas GNU.
-* Dependiendo del sistema puede ser necesario instalar los paquetes para ver por    pantalla las imágenes generadas: sudo apt update
-                                 sudo apt install xdg-utils
+* Dependiendo del sistema puede ser necesario instalar los paquetes para ver por    pantalla las imágenes generadas: ** sudo apt update **
+                                 ** sudo apt install xdg-utils **
 * En caso de que xdg-utils no funciones, puede ser necesario instalar eog:
-                                 sudo apt update
-                                 sudo apt install eog
+                                 ** sudo apt update **
+                                 ** sudo apt install eog **
 
 
 Estructura del proyecto:
