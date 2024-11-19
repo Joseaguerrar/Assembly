@@ -26,7 +26,7 @@ Carpeta `salidas/`: Se guarda la imagen con 4 filtros aplicados (sepia, escala d
 ├── sepia_filter.asm    # Código ensamblador para filtro sepia.
 ├── grayscale_filter.asm   # Código ensamblador para filtro escala de grises.
 ├── invert_filter.asm   # Código ensamblador para filtro negativo
-├── invert_filter.asm   # Código ensamblador para filtro binarizador
+├── binarize_filter.asm   # Código ensamblador para filtro binarizador
 ├── Makefile            # Script para compilar y ejecutar el proyecto.
 └── README.md           # Este archivo (Manual de uso).
 ```
