@@ -1,19 +1,21 @@
 # README - Filtros para Imágenes BMP
 Este proyecto aplica un filtros a imágenes BMP utilizando una combinación de código en C++ y ensamblador (ASM). Es una herramienta básica que demuestra el manejo de archivos de imagen BMP y cómo realizar operaciones de procesamiento de imágenes de manera eficiente.
 
-Requisitos
-Compilador C++: g++ (compatible con C++17 o superior).
-Ensamblador: nasm.
-Sistema Operativo: Linux o cualquier sistema compatible con herramientas GNU.
+## Requisitos:
+* Compilador C++: g++ (compatible con C++17 o superior).
+* Ensamblador: nasm.
+* Sistema operativo: Linux o cualquier sistema compatible con herramientas GNU.
+
 Estructura del proyecto:
-Carpeta entradas: Contiene la imagen BMP que se procesará.
-Carpeta salidas: Se guarda la imagen BMP con el filtro sepia aplicado.
+Carpeta `entradas/`: Contiene las imagenes a procesar
+Carpeta `salidas/`: Se guarda la imagen con 4 filtros aplicados (sepia, escala de grises, negativo y binarizado)
+
 Estructura del Proyecto
-graphql
 Copiar código
+
 .
 ├── entradas/           # Carpeta de entrada para las imágenes BMP.
-│   └── entrada.bmp     # Imagen BMP original (proporcionada por el usuario).
+│   └── entrada1.bmp     # Imagen BMP original (proporcionada por el usuario).
 ├── salidas/            # Carpeta de salida para las imágenes procesadas.
 ├── build/              # Carpeta para archivos objeto (.o).
 ├── bin/                # Carpeta para el ejecutable final.
@@ -21,6 +23,7 @@ Copiar código
 ├── sepia_filter.asm    # Código ensamblador para aplicar el filtro sepia.
 ├── Makefile            # Script para compilar y ejecutar el proyecto.
 └── README.md           # Este archivo.
+
 ## Compilación y Ejecución
 1. Preparación
 Asegúrese de tener un archivo BMP válido llamado entrada.bmp en la carpeta entradas/.
