@@ -1,5 +1,5 @@
 # README - Filtros para imágenes BMP
-Este proyecto aplica un filtros a imágenes BMP utilizando una combinación de código en C++ y ensamblador (ASM). Es una herramienta básica que demuestra el manejo de archivos de imagen BMP y cómo realizar operaciones de procesamiento de imágenes de manera eficiente.
+Este proyecto aplica un filtros a imágenes BMP utilizando una combinación de código en C++ y ensamblador (ASM). Es una herramienta básica que demuestra el manejo de archivos de imagen BMP y cómo realizar operaciones de procesamiento de imágenes.
 
 ## Requisitos:
 * Compilador C++: g++ (compatible con C++17 o superior).
@@ -38,13 +38,13 @@ Asegúrese de tener los archivos BMP válidos la carpeta `entradas/`.
 Para compilar el proyecto, utiliza el siguiente comando en el terminal:
 
 ```bash
+make clean
 make
 ```
-
 Esto generará el ejecutable en la carpeta `bin/`. Los archivos `.o` se generarán en la carpeta `build/`.
 
 3. **Ejecución**
-Para aplicar el filtro sepia a la imagen:
+Para aplicar los 4 filstros a la imagen especificada:
 
 ```bash
 ./bin/filtros <nombre_imagen.bmp>
