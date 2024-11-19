@@ -117,8 +117,7 @@ int main(int argc, char *argv[]) {
       return 1;
     }
 
-    // Defnir los directorios de entrada (imagenes para aplicar filtros) y
-    // salida (imagenes con los filtros aplicados)
+    // Definir los directorios de entrada (imágenes para aplicar filtros) y salida (imágenes con los filtros aplicados)
     const std::string input_dir = "entradas";
     const std::string output_dir = "salidas";
 
@@ -145,72 +144,60 @@ int main(int argc, char *argv[]) {
       return 1;
     }
 
-    // Si por alguna razón al cargar la imagen el tamaño no coincidiera con el
-    // esperado, entonces lanzar excepción
+    // Validar que el tamaño de los datos de la imagen coincida con las dimensiones esperadas
     if (image.data.size() !=
         static_cast<size_t>((image.width * 3 + 3) & ~3) * image.height) {
-      std::cerr << "Error: Tamaño de datos de la imagen no coincide con las "
-                   "dimensiones.\n";
+      std::cerr << "Error: Tamaño de datos de la imagen no coincide con las dimensiones.\n";
       return 1;
     }
 
-    // Ahora se comienzan a aplicar los filtros llamando a cada función en
-    // ensamblador
+    // Rutas de salida
+    const std::string sepia_output = output_dir + "/salida_sepia.bmp";
+    const std::string grayscale_output = output_dir + "/salida_grayscale.bmp";
+    const std::string invert_output = output_dir + "/salida_invert.bmp";
+    const std::string binarize_output = output_dir + "/salida_binarize.bmp";
 
-    // 1. Sepia
+    // Aplicar filtros
     BMPImage sepia_image = image;
-    if (sepia_image.data.data() == nullptr || sepia_image.data.size() == 0) {
+    if (!sepia_image.data.data() || sepia_image.data.size() == 0) {
       throw std::runtime_error("Datos de imagen inválidos para filtro sepia.");
     }
     std::cout << "Aplicando filtro sepia...\n";
-    const std::string sepia_output = output_dir + "/salida_sepia.bmp";
     apply_sepia_filter(sepia_image.data.data(), sepia_image.data.size());
     save_bmp(sepia_output, sepia_image);
     std::cout << "Filtro sepia guardado en salida_sepia.bmp\n";
-    open_image(sepia_output);
 
-    // 2. Escala de grises
     BMPImage grayscale_image = image;
-    if (grayscale_image.data.data() == nullptr ||
-        grayscale_image.data.size() == 0) {
-      throw std::runtime_error(
-          "Datos de imagen inválidos para filtro escala de grises.");
+    if (!grayscale_image.data.data() || grayscale_image.data.size() == 0) {
+      throw std::runtime_error("Datos de imagen inválidos para filtro escala de grises.");
     }
     std::cout << "Aplicando filtro escala de grises...\n";
-    const std::string grayscale_output = output_dir + "/salida_grayscale.bmp";
-    apply_grayscale_filter(grayscale_image.data.data(),
-                           grayscale_image.data.size());
+    apply_grayscale_filter(grayscale_image.data.data(), grayscale_image.data.size());
     save_bmp(grayscale_output, grayscale_image);
     std::cout << "Filtro escala de grises guardado en salida_grayscale.bmp\n";
-    open_image(grayscale_output);
 
-    // 3. Negativo
     BMPImage invert_image = image;
-    if (invert_image.data.data() == nullptr || invert_image.data.size() == 0) {
-      throw std::runtime_error(
-          "Datos de imagen inválidos para filtro de inversión.");
+    if (!invert_image.data.data() || invert_image.data.size() == 0) {
+      throw std::runtime_error("Datos de imagen inválidos para filtro de inversión.");
     }
     std::cout << "Aplicando filtro de inversión...\n";
-    const std::string invert_output = output_dir + "/salida_invert.bmp";
     apply_invert_filter(invert_image.data.data(), invert_image.data.size());
     save_bmp(invert_output, invert_image);
     std::cout << "Filtro de inversión guardado en salida_invert.bmp\n";
-    open_image(invert_output);
 
-    // 4. Binarizar
     BMPImage binarize_image = image;
-    if (binarize_image.data.data() == nullptr ||
-        binarize_image.data.size() == 0) {
-      throw std::runtime_error(
-          "Datos de imagen inválidos para filtro binarizador.");
+    if (!binarize_image.data.data() || binarize_image.data.size() == 0) {
+      throw std::runtime_error("Datos de imagen inválidos para filtro binarizador.");
     }
     std::cout << "Aplicando filtro binarizador...\n";
-    const std::string binarize_output = output_dir + "/salida_binarize.bmp";
-    apply_binarize_filter(binarize_image.data.data(),
-                          binarize_image.data.size());
+    apply_binarize_filter(binarize_image.data.data(), binarize_image.data.size());
     save_bmp(binarize_output, binarize_image);
     std::cout << "Filtro binarizador guardado en salida_binarize.bmp\n";
-    open_image(binarize_output);
+
+    // Abrir imágenes al final
+    std::cout << "Abriendo imágenes generadas...\n";
+    // Solo es necesario abrir la primera imagen ya que se abren las demás
+    open_image(sepia_output);
 
   } catch (const std::exception &e) {
     std::cerr << "Error: " << e.what() << std::endl;
