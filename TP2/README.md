@@ -67,7 +67,7 @@ Para aplicar los 4 filstros a la imagen especificada:
 ./bin/filtros <nombre_imagen.bmp>
 ```
 
-Al hacer esto, el programa buscará la imagen BMP respectiva en la carpeta `entradas/`. Cargará la imagen y aplicará los cuatro filtros. Luego guardará las nuevas imagenes con los cuatros filtros aplicados en la carpeta `salidas/`. Finalmente, se abrirán automáticamente las imagenes creadas para que el usuario pueda visualizarlas directamente.
+Al hacer esto, el programa buscará la imagen BMP respectiva en la carpeta `entradas/`. Cargará la imagen y aplicará los cuatro filtros. Luego guardará las nuevas imagenes con los cuatros filtros aplicados en la carpeta `salidas/`. Finalmente, se abrirán automáticamente las imagenes creadas para que el usuario pueda visualizarlas directamente. Puede cambiar la imágen con la flecha derecha o izquierda.
 
 #### Ejemplo de uso
 Suponga que se quiere usar una de las imagenes de prueba incluidas, por ejemplo `entrada1.bmp`. Tras haber compilado el programa puede ejecutarlo de la siguiente forma para aplicar los filtros a esta imagen respectiva.
