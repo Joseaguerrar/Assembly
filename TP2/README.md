@@ -61,7 +61,7 @@ make
 Esto generará el ejecutable en la carpeta `bin/`. Los archivos `.o` se generarán en la carpeta `build/`.
 
 3. **Ejecución**
-Para aplicar los 4 filstros a la imagen especificada:
+Para aplicar los 4 filtros a la imagen especificada:
 
 ```bash
 ./bin/filtros <nombre_imagen.bmp>
@@ -91,6 +91,8 @@ Aplicando filtro de inversión...
 Filtro de inversión guardado en salida_invert.bmp
 Aplicando filtro binarizador...
 Filtro binarizador guardado en salida_binarize.bmp
+Abriendo imágenes generadas...
+
 
 ```
 
