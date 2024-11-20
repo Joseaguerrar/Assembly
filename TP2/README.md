@@ -1,7 +1,7 @@
 # Tarea programada 2
 ## Integrantes: Jose Guerra (C33510) y Jerson Bonilla (C31225)
 # Filtros para imágenes BMP
-Este proyecto aplica cuatro filtros a imágenes BMP utilizando una combinación de código en C++ y ensamblador (ASM). Es una herramienta básica que demuestra el manejo de archivos de imagen BMP y cómo realizar operaciones de procesamiento de imágenes.
+Esta tarea aplica cuatro filtros a imágenes BMP utilizando una combinación de código en C++ y ensamblador (ASM). Es una herramienta básica que demuestra el manejo de archivos de imagen BMP y cómo realizar operaciones de procesamiento de imágenes.
 
 ## Objetivo de la tarea
 De los principales objetivos de esta tarea es aplicar los conocimientos aprendidos sobre los registros sse para aprovechar las instrucciones de empaquetamiento de datos que ofrecen estos registros. Además, aplicar por lo menos 5 optimizaciones en el código para mejorar el rendimiento. 
