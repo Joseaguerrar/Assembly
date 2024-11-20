@@ -4,7 +4,7 @@
 Esta tarea aplica cuatro filtros a imágenes BMP utilizando una combinación de código en C++ y ensamblador (ASM). Es una herramienta básica que demuestra el manejo de archivos de imagen BMP y cómo realizar operaciones de procesamiento de imágenes.
 
 ## Objetivo de la tarea
-De los principales objetivos de esta tarea es aplicar los conocimientos aprendidos sobre los registros sse para aprovechar las instrucciones de empaquetamiento de datos que ofrecen estos registros. Además, aplicar por lo menos 5 optimizaciones en el código para mejorar el rendimiento. 
+De los principales objetivos de esta tarea es aplicar los conocimientos aprendidos sobre los registros SSE para aprovechar las instrucciones de empaquetamiento de datos que ofrecen estos registros. Además, aplicar por lo menos 5 optimizaciones en el código para mejorar el rendimiento. 
 
 ### Optimizaciones aplicadas:
 * **Carga de direcciones de memoria en registros:** Se cargan las direcciones de memoria en registros SSE para minimizar el acceso a memoria. 
@@ -34,8 +34,8 @@ sudo apt install eog
 
 
 Estructura del proyecto:
-Carpeta `entradas/`: Contiene las imagenes a procesar
-Carpeta `salidas/`: Se guarda la imagen con 4 filtros aplicados (sepia, escala de grises, negativo y binarizado)
+* Carpeta `entradas/`: Contiene las imagenes a procesar.
+* Carpeta `salidas/`: Se guarda la imagen con 4 filtros aplicados (sepia, escala de grises, negativo y binarizado).
 
 ### Estructura del proyecto:
 
@@ -60,7 +60,9 @@ Carpeta `salidas/`: Se guarda la imagen con 4 filtros aplicados (sepia, escala d
 
 ### **Compilación y ejecución**
 1. **Preparación**
+
 Asegúrese de tener los archivos BMP válidos la carpeta `entradas/`.
+
 2. **Compilación**
 Para compilar el proyecto, utiliza el siguiente comando en el terminal:
 
@@ -68,19 +70,21 @@ Para compilar el proyecto, utiliza el siguiente comando en el terminal:
 make clean
 make
 ```
+
 Esto generará el ejecutable en la carpeta `bin/`. Los archivos `.o` se generarán en la carpeta `build/`.
 
 3. **Ejecución**
+
 Para aplicar los 4 filtros a la imagen especificada:
 
 ```bash
 ./bin/filtros <nombre_imagen.bmp>
 ```
 
-Al hacer esto, el programa buscará la imagen BMP respectiva en la carpeta `entradas/`. Cargará la imagen y aplicará los cuatro filtros. Luego guardará las nuevas imagenes con los cuatros filtros aplicados en la carpeta `salidas/`. Finalmente, se abrirán automáticamente las imagenes creadas para que el usuario pueda visualizarlas directamente. Puede cambiar la imágen con la flecha derecha o izquierda.
+Al hacer esto, el programa buscará la imagen BMP respectiva en la carpeta `entradas/`. Cargará la imagen y aplicará los cuatro filtros. Luego guardará las nuevas imagenes con los cuatros filtros aplicados en la carpeta `salidas/`. Finalmente, se abrirán automáticamente las imágenes creadas para que el usuario pueda visualizarlas directamente. Puede cambiar la imagen con la flecha derecha o izquierda.
 
 #### Ejemplo de uso
-Suponga que se quiere usar una de las imagenes de prueba incluidas, por ejemplo `entrada1.bmp`. Tras haber compilado el programa puede ejecutarlo de la siguiente forma para aplicar los filtros a esta imagen respectiva.
+Suponga que se quiere usar una de las imágenes de prueba incluidas, por ejemplo `entrada1.bmp`. Tras haber compilado el programa, puede ejecutarlo de la siguiente forma para aplicar los filtros a esta imagen respectiva.
 
 ```bash
 ./bin/filtros entrada1.bmp
