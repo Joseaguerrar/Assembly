@@ -1,9 +1,19 @@
+# Tarea programada 2
+## Integrantes: Jose Guerra (C33510) y Jerson Bonilla (C31225)
 # Filtros para imágenes BMP
-Este proyecto aplica un filtros a imágenes BMP utilizando una combinación de código en C++ y ensamblador (ASM). Es una herramienta básica que demuestra el manejo de archivos de imagen BMP y cómo realizar operaciones de procesamiento de imágenes.
+Esta tarea aplica cuatro filtros a imágenes BMP utilizando una combinación de código en C++ y ensamblador (ASM). Es una herramienta básica que demuestra el manejo de archivos de imagen BMP y cómo realizar operaciones de procesamiento de imágenes.
+
 ## Objetivo de la tarea
-De los principales objetivos de esta tarea es aplicar los conocimientos aprendidos sobre los registros sse para aprovechar las instrucciones de empaquetamiento de datos que ofrecen estos registros. Además, aplicar optimizaciones en el código para mejorar el rendimiento. En este caso se buscaban 5 optimizaciones:
-* Guardar direcciones de memoria en registros sse para no tener que pasar accediendo a memoria.
-* Optimizar las secciones de los ciclos de código que se repiten muchas veces.
+De los principales objetivos de esta tarea es aplicar los conocimientos aprendidos sobre los registros SSE para aprovechar las instrucciones de empaquetamiento de datos que ofrecen estos registros. Además, aplicar por lo menos 5 optimizaciones en el código para mejorar el rendimiento. 
+
+### Optimizaciones aplicadas:
+* **Carga de direcciones de memoria en registros:** Se cargan las direcciones de memoria en registros SSE para minimizar el acceso a memoria. 
+* **Estructura de bucles eficiente:** Los bucles están diseñados para usar un contador decreciente y una comparación directa (jle .end_loop), lo que minimiza las operaciones de control.
+* **Manipulación directa de datos:** Al final de cada filtro, se accede y modifica directamente los bytes de los canales en el vector que contiene la imagen (mov byte [rdi],...), eliminando la necesidad de otros registros o estructuras intermedias.
+* **Conversión eficiente de tipos:** Se emplean instrucciones específicas como cvtsi2ss (entero a flotante) y cvtss2si (flotante a entero) para las conversiones individuales, que resultan más eficientes en SSE en contraste con las de x86 FPU, por ejemplo.
+* **Reutilización de registros:** Los registros se reutilizan para almacenar valores intermedios, como los cálculos de canales B, G, R o las operaciones de saturación, algo que es posible gracias al empaquetamiento.
+* **Uso de constantes predefinidas**: Las constantes como los pesos para escala de grises, los pesos del sepia o el valor máximo permitido (255.0), por ejemplo, están empaquetados y almacenados en memoria por defecto, lo que reduce los cálculos innecesarios al evitar cargar valores en cada registro en cada iteración. 
+
 
 ### Requisitos:
 * Compilador C++: g++ (compatible con C++17 o superior).
@@ -24,8 +34,8 @@ sudo apt install eog
 
 
 Estructura del proyecto:
-Carpeta `entradas/`: Contiene las imagenes a procesar
-Carpeta `salidas/`: Se guarda la imagen con 4 filtros aplicados (sepia, escala de grises, negativo y binarizado)
+* Carpeta `entradas/`: Contiene las imagenes a procesar.
+* Carpeta `salidas/`: Se guarda la imagen con 4 filtros aplicados (sepia, escala de grises, negativo y binarizado).
 
 ### Estructura del proyecto:
 
@@ -50,7 +60,9 @@ Carpeta `salidas/`: Se guarda la imagen con 4 filtros aplicados (sepia, escala d
 
 ### **Compilación y ejecución**
 1. **Preparación**
+
 Asegúrese de tener los archivos BMP válidos la carpeta `entradas/`.
+
 2. **Compilación**
 Para compilar el proyecto, utiliza el siguiente comando en el terminal:
 
@@ -58,19 +70,21 @@ Para compilar el proyecto, utiliza el siguiente comando en el terminal:
 make clean
 make
 ```
+
 Esto generará el ejecutable en la carpeta `bin/`. Los archivos `.o` se generarán en la carpeta `build/`.
 
 3. **Ejecución**
-Para aplicar los 4 filstros a la imagen especificada:
+
+Para aplicar los 4 filtros a la imagen especificada:
 
 ```bash
 ./bin/filtros <nombre_imagen.bmp>
 ```
 
-Al hacer esto, el programa buscará la imagen BMP respectiva en la carpeta `entradas/`. Cargará la imagen y aplicará los cuatro filtros. Luego guardará las nuevas imagenes con los cuatros filtros aplicados en la carpeta `salidas/`. Finalmente, se abrirán automáticamente las imagenes creadas para que el usuario pueda visualizarlas directamente. Puede cambiar la imágen con la flecha derecha o izquierda.
+Al hacer esto, el programa buscará la imagen BMP respectiva en la carpeta `entradas/`. Cargará la imagen y aplicará los cuatro filtros. Luego guardará las nuevas imagenes con los cuatros filtros aplicados en la carpeta `salidas/`. Finalmente, se abrirán automáticamente las imágenes creadas para que el usuario pueda visualizarlas directamente. Puede cambiar la imagen con la flecha derecha o izquierda.
 
 #### Ejemplo de uso
-Suponga que se quiere usar una de las imagenes de prueba incluidas, por ejemplo `entrada1.bmp`. Tras haber compilado el programa puede ejecutarlo de la siguiente forma para aplicar los filtros a esta imagen respectiva.
+Suponga que se quiere usar una de las imágenes de prueba incluidas, por ejemplo `entrada1.bmp`. Tras haber compilado el programa, puede ejecutarlo de la siguiente forma para aplicar los filtros a esta imagen respectiva.
 
 ```bash
 ./bin/filtros entrada1.bmp
@@ -91,12 +105,23 @@ Aplicando filtro de inversión...
 Filtro de inversión guardado en salida_invert.bmp
 Aplicando filtro binarizador...
 Filtro binarizador guardado en salida_binarize.bmp
+Abriendo imágenes generadas...
+
 
 ```
 
 También se mostrarán en pantalla las imagenes creadas, algo semejante a como se muestra a continuación:
 
-![Captura de pantalla con muestra](exec_example.png)
+![Ejecución](exec_example1.png)
+
+El usuario puede usar las flechas que aparecen a ambos lados para recorrer las cuatro imagenes creadas en la galería:
+
+![Ejecución](exec_example2.png)
+
+![Ejecución](exec_example3.png)
+
+![Ejecución](exec_example4.png)
+
 
 ### Notas importantes
 * **Formato de imagen:** Este programa solo funciona con imágenes en formato BMP. Si utilizas otros formatos (como PNG o JPG), deberás convertirlos previamente.
