@@ -29,11 +29,13 @@ Solo hay dos valores posibles: antes del mediodía (AM) o después del mediodía
 Necesitamos 1 bit para representar esta información.
 0 = AM
 1 = PM
+
 2. Día de la semana:
 
 Hay 7 días (Lunes a Domingo).
 Para representar 7 valores, necesitamos 3 bits.
 Ejemplo: 000 = Lunes, 001 = Martes, ..., 110 = Domingo.
+
 3. Mes del año:
 
 Hay 12 meses (Enero a Diciembre).
