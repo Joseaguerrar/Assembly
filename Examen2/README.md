@@ -120,19 +120,24 @@ Makefile: Archivo de automatización para compilar y ejecutar el programa.
 ### Comandos Disponibles en el Makefile
 Compilar el programa:
 
-1. Comando en terminal:
+Comando en terminal:
 
-make
+1. make
+
 Este comando compila el programa, generando el ejecutable en el directorio bin/ bajo el nombre program.
+
 Ejecutar el programa:
 
-2. Comando en terminal:
+Comando en terminal:
 
-make run
+2. make run
+
 Este comando compila el programa (si no está compilado) y lo ejecuta directamente. Útil para pruebas rápidas.
+
 Limpiar los archivos generados:
 
-3. Comando en terminal:
+Comando en terminal:
 
-make clean
+3. make clean
+
 Este comando elimina el directorio build/ (archivos objeto) y bin/ (ejecutable), dejando el proyecto en su estado inicial.
