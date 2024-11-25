@@ -89,7 +89,7 @@ Mes del año: 1 a 12.
 La entrada del usuario se convierte a un único byte utilizando operaciones bit a bit.
 Se almacena el momento del día en el bit más significativo (MSB).
 Los bits restantes contienen el día de la semana y el mes.
-### Resultado:
+#### Resultado:
 El timestamp generado se imprime en formato hexadecimal.
 ### Decodificación del Timestamp
 #### Entrada del timestamp:
