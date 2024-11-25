@@ -20,7 +20,7 @@ void decodeTimestampOption();
 int main() {
     string option;
 
-    // Bucle para la selección de una opción válida
+    // Bucle para la selección de una opción inicial
     while (true) {
         cout << "Seleccione una opción:\n"
              << "1. Generar timestamp\n"
@@ -104,28 +104,38 @@ void decodeTimestampOption() {
     string hexInput;
     int timestamp;
 
+    // Bucle para solicitar una entrada válida en formato hexadecimal.
     while (true) {
         cout << "Introduzca el timestamp en formato hexadecimal: ";
         cin >> hexInput;
         try {
+            // Convertir la entrada de cadena hexadecimal a un número entero.
+            // stoi lanza una excepción si la entrada no es válida.
             timestamp = stoi(hexInput, nullptr, 16);
             break;
         } catch (invalid_argument&) {
+            // Mensaje de error si la entrada no es un valor hexadecimal válido.
             cerr << "Entrada no válida para el timestamp. Por favor, introduzca un valor hexadecimal válido.\n";
         }
     }
 
-    int timeOfDay, dayOfWeek, month;
+    int timeOfDay, dayOfWeek, month; // Variables para almacenar los componentes decodificados del timestamp.
+
+    // Llamada a la función ensambladora para decodificar el timestamp.
+    // Se espera que esta función almacene los valores decodificados en las variables referenciadas.
     int valid = decodeTimestamp(timestamp, &timeOfDay, &dayOfWeek, &month);
 
+    // Verificar si el timestamp proporcionado es válido según la lógica de la función ensambladora.
     if (valid == 0) {
+        // Si no es válido, mostrar un mensaje de error al usuario.
         cerr << "Ese no es un timestamp válido.\n";
         cerr << "Por favor, genere un timestamp válido y vuelva a intentarlo.\n";
         return;
     }
 
+    // Mostrar los resultados decodificados al usuario en formato legible.
     cout << "Resultado: "
-         << (timeOfDay == 0 ? "antes del mediodía" : "después del mediodía") << ", "
-         << "Día de la semana: " << daysOfWeek[dayOfWeek] << ", "
-         << "Mes: " << monthsOfYear[month - 1] << "\n";
+         << (timeOfDay == 0 ? "antes del mediodía" : "después del mediodía") << ", " // Momento del día.
+         << "Día de la semana: " << daysOfWeek[dayOfWeek] << ", " // Día de la semana.
+         << "Mes: " << monthsOfYear[month - 1] << "\n"; // Mes del año (ajustado al índice base 0).
 }
