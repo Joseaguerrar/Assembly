@@ -1,4 +1,4 @@
-# Nombre del ejecutable
+# Nombre del ejecutable 
 TARGET = bin/program
 
 # Directorios
@@ -47,3 +47,7 @@ $(BIN_DIR):
 # Limpieza de archivos objeto, ejecutable y directorios
 clean:
 	rm -rf $(BUILD_DIR) $(BIN_DIR)
+
+# Regla para compilar y ejecutar el programa
+run: all
+	./$(TARGET)
