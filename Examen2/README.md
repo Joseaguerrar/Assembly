@@ -50,6 +50,7 @@ Esto significa que podemos representar un timestamp completo en un solo byte (8 
 Supongamos los siguientes escenarios:
 
 1. Lunes en Enero antes del mediodía:
+
 AM = 0
 Lunes = 000
 Enero = 0001
@@ -57,6 +58,7 @@ Timestamp en binario: 00000001
 Representación hexadecimal: 0x01
 
 2. Viernes en Junio después del mediodía:
+
 PM = 1
 Viernes = 100
 Junio = 0110
@@ -64,6 +66,7 @@ Timestamp en binario: 11000110
 Representación hexadecimal: 0xC6
 
 3. Domingo en Diciembre antes del mediodía:
+
 AM = 0
 Domingo = 110
 Diciembre = 1100
