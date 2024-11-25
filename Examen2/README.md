@@ -118,7 +118,7 @@ main.cpp: Archivo principal en C++ que gestiona la entrada y salida de datos.
 timestamp.asm: Archivo ensamblador que implementa la generación y decodificación del timestamp.
 Makefile: Archivo de automatización para compilar y ejecutar el programa.
 ### Comandos Disponibles en el Makefile
-Compilar el programa:
+### Compilar el programa:
 
 Comando en terminal:
 
@@ -126,7 +126,7 @@ Comando en terminal:
 
 Este comando compila el programa, generando el ejecutable en el directorio bin/ bajo el nombre program.
 
-Ejecutar el programa:
+### Ejecutar el programa:
 
 Comando en terminal:
 
@@ -134,7 +134,7 @@ Comando en terminal:
 
 Este comando compila el programa (si no está compilado) y lo ejecuta directamente. Útil para pruebas rápidas.
 
-Limpiar los archivos generados:
+### Limpiar los archivos generados:
 
 Comando en terminal:
 
