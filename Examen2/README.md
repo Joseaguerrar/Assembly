@@ -62,13 +62,12 @@ Timestamp en binario: 11000110
 Representación hexadecimal: 0xC6
 
 3. Domingo en Diciembre antes del mediodía:
-bash´´´´
 AM = 0
 Domingo = 110
 Diciembre = 1100
 Timestamp en binario: 01101100
 Representación hexadecimal: 0x6C
-´´´
+
 ## Explicación del Flujo del Programa
 ### Generación del Timestamp
 #### Entrada de datos:
