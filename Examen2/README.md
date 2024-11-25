@@ -104,3 +104,35 @@ Imprime en lenguaje natural:
 Momento del día: "antes del mediodía" o "después del mediodía".
 Día de la semana: "Lunes", "Martes", ..., "Domingo".
 Mes: "Enero", "Febrero", ..., "Diciembre".
+## Manual de Uso
+Este manual describe cómo compilar, ejecutar y probar el programa utilizando el Makefile proporcionado.
+
+### Requisitos Previos
+1. Compiladores y herramientas necesarias:
+g++: Para compilar el código en C++.
+nasm: Para ensamblar el código en lenguaje ensamblador.
+Un sistema operativo compatible con las herramientas mencionadas (Linux recomendado).
+2. Estructura del proyecto:
+Archivos del proyecto:
+main.cpp: Archivo principal en C++ que gestiona la entrada y salida de datos.
+timestamp.asm: Archivo ensamblador que implementa la generación y decodificación del timestamp.
+Makefile: Archivo de automatización para compilar y ejecutar el programa.
+### Comandos Disponibles en el Makefile
+Compilar el programa:
+
+1. Comando en terminal:
+
+make
+Este comando compila el programa, generando el ejecutable en el directorio bin/ bajo el nombre program.
+Ejecutar el programa:
+
+2. Comando en terminal:
+
+make run
+Este comando compila el programa (si no está compilado) y lo ejecuta directamente. Útil para pruebas rápidas.
+Limpiar los archivos generados:
+
+3. Comando en terminal:
+
+make clean
+Este comando elimina el directorio build/ (archivos objeto) y bin/ (ejecutable), dejando el proyecto en su estado inicial.
