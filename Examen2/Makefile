@@ -7,11 +7,11 @@ BIN_DIR = bin
 
 # Archivos fuente
 CPP_SRC = main.cpp
-ASM_SRC = timestamp.asm
+ASM_SRC = timestamp.asm 
 
 # Archivos objeto
 CPP_OBJ = $(BUILD_DIR)/main.o
-ASM_OBJ = $(BUILD_DIR)/timestamp.o
+ASM_OBJ = $(BUILD_DIR)/timestamp.o 
 
 # Compiladores
 CXX = g++
@@ -32,9 +32,9 @@ $(TARGET): $(CPP_OBJ) $(ASM_OBJ)
 $(CPP_OBJ): $(CPP_SRC) | $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) -c $(CPP_SRC) -o $(CPP_OBJ)
 
-# Regla para compilar el archivo ASM
-$(ASM_OBJ): $(ASM_SRC) | $(BUILD_DIR)
-	$(ASM) $(ASMFLAGS) $(ASM_SRC) -o $(ASM_OBJ)
+# Regla para compilar cada archivo ASM
+$(BUILD_DIR)/%.o: %.asm | $(BUILD_DIR)
+	$(ASM) $(ASMFLAGS) $< -o $@
 
 # Regla para crear el directorio de objetos
 $(BUILD_DIR):
