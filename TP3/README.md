@@ -38,7 +38,7 @@ Este programa valida un número de serie ingresado por el usuario. Contiene una 
 
 ### Prevención de vulnerabilidades Buffer Overflow
 1. Mejoras en el código:
-> Usar funciones seguras como fgets con límites apropiados.
+<Usar funciones seguras como fgets con límites apropiados.
 > Verificar manualmente la longitud del input antes de procesarlo.
 > Implementar control de errores en cada operación que involucre memoria.
 
