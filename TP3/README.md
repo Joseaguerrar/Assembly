@@ -13,7 +13,7 @@ Un buffer overflow ocurre cuando se escribe más información de la que un buffe
 
 ### Ejemplo 1: Código con función vulnerable
 
-Este programa tiene una función vulnerable llamada vuln, que utiliza un buffer de tamaño fijo (array[400]) para almacenar el texto ingresado por el usuario. Si se compila sin protecciones de pila, un atacante puede explotar esta vulnerabilidad para sobrescribir la dirección de retorno de la función y ejecutar código no autorizado, como la función secretFunction. El programa demuestra cómo un input malicioso puede desencadenar acciones no previstas.
+Este programa tiene una función vulnerable llamada vuln, que utiliza un buffer de tamaño fijo (array[400]) para almacenar el texto ingresado por el usuario. Si se compila sin protecciones de pila, un atacante puede explotar esta vulnerabilidad para sobrescribir la dirección de retorno de la función y ejecutar código no autorizado, como la función secretFunction. El programa demuestra cómo un input malicioso puede desencadenar acciones no deseadas.
 
 1. Vulnerabilidad:
 
