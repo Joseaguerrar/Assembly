@@ -30,6 +30,7 @@ Este programa valida un número de serie ingresado por el usuario. Contiene una 
 1. Vulnerabilidad:
 
 >La función fscanf(stdin, "%s", numeroDeSerie) en validarNumeroDeSerie no verifica si el número de caracteres ingresados excede el tamaño del buffer numeroDeSerie[24].
+
 >Esto permite sobrescribir la memoria adyacente si el usuario ingresa más de 24 caracteres.
 
 2. Implicaciones:
@@ -38,8 +39,10 @@ Este programa valida un número de serie ingresado por el usuario. Contiene una 
 
 ### Prevención de vulnerabilidades Buffer Overflow
 1. Mejoras en el código:
-<Usar funciones seguras como fgets con límites apropiados.
+>Usar funciones seguras como fgets con límites apropiados.
+
 > Verificar manualmente la longitud del input antes de procesarlo.
+
 > Implementar control de errores en cada operación que involucre memoria.
 
 2. Uso de herramientas de análisis:
@@ -56,6 +59,7 @@ En el contexto de este curso:
 2. Prevención a nivel bajo
 
 > Usar estructuras de control de pila en ensamblador para garantizar que los datos no sobreescriban áreas críticas.
+
 >Implementar verificaciones manuales en rutinas que manipulan buffers.
 
 3. Monitoreo de actividad
