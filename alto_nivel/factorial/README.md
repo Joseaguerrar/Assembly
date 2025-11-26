@@ -1,9 +1,9 @@
     # Factorial
 
-    ## Instrucciones
+    ## Instructions
 
-    1. Crear una carpeta en la carpeta home de tu usuario con el nombre factorial.
+    1. Create a folder in the folder home of your user with the name factorial.
 
-    ## Descripción
+    ## Description
 
-    En este ejercicio se va a implementar una función que recibe un número y calcula el factorial de ese número.    
+   In this excersise a function will be implemented, which recieves a number and calculates the factorial of the number.    
