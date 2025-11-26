@@ -1,21 +1,21 @@
-## Programa en Ensamblador para Calcular el Producto Punto de Dos Vectores
+## Assembly Program to Compute the Dot Product of Two Vectors
 
-### Descripción del Programa
+### Program Description
 
-1. **Cálculo del Producto Punto**:
-   - Considere el cálculo del producto punto de dos vectores en el espacio tridimensional, A y B, representados como:
-   - A = (a₁, a₂, a₃) y B = (b₁, b₂, b₃).
-   - El programa en ensamblador (x86-64) calculará el producto punto (producto escalar) de los vectores A y B utilizando la fórmula correspondiente.
-   - El resultado debe quedar en un lugar de memoria apuntado por una etiqueta llamada `respuesta`.
+1. **Dot Product Calculation**:
+   - Consider the computation of the dot product of two vectors in three-dimensional space, A and B, represented as:
+   - A = (a₁, a₂, a₃) and B = (b₁, b₂, b₃).
+   - The assembly program (x86-64) will compute the dot product (scalar product) of vectors A and B using the corresponding formula.
+   - The result must be stored in a memory location pointed to by a label called `respuesta`.
 
-2. **Fórmula para el Producto Punto**:
-   - El producto punto de dos vectores A y B en el espacio tridimensional se calcula como:
+2. **Formula for the Dot Product**:
+   - The dot product of two vectors A and B in three-dimensional space is computed as:
    - A · B = a₁ * b₁ + a₂ * b₂ + a₃ * b₃.
 
-### Consideraciones Importantes:
+### Important Considerations:
 
-- Debe tener las secciones `.data` y `.text`.
-- La sección `.text` debe incluir el código para devolver el control al sistema operativo.
-- Suponga que los valores aᵢ y bᵢ están en el rango de -15000 a +15000. Por tanto, use tipo de datos que no “desperdicien” bytes.
-- Se calificará el uso apropiado de registros, modos de direccionamiento, etc. (ejemplo, no puede usar los registros asignados a la pila – rbp, rsp).
-- Favor presentar código ordenado e indentado apropiadamente.
+- You must have the `.data` and `.text` sections.
+- The `.text` section must include the code to return control to the operating system.
+- Assume that the values aᵢ and bᵢ are in the range from -15000 to +15000. Therefore, use data types that do not “waste” bytes.
+- The appropriate use of registers, addressing modes, etc. will be graded (for example, you may not use the registers assigned to the stack – rbp, rsp).
+- Please present code that is neatly formatted and properly indented.
