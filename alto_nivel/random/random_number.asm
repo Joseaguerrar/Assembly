@@ -1,24 +1,24 @@
-;Declaración de la función ensamblador
-;extern "C" int random_number()
+; Declaration of the assembly function
+; extern "C" int random_number()
 section .text
     global random_number
 
 random_number:
-    ; Guardar los registros usados
+    ; Save used registers
     push rbx
     push rcx
     push rdx
 
-    ; Llamar a RDTSC para generar un número pseudoaleatorio
-    rdtsc                  ; Leer el contador de tiempo
-    mov rax, rdx          ; Usar la parte alta del timestamp como base
-    xor rdx, rdx          ; Limpiar RDX
-    mov rbx, 3            ; Divisor (rango superior)
-    div rbx               ; Dividir por 3 (RAX = cociente, RDX = residuo)
-    add rdx, 1            ; Ajustar el rango a 1-3
-    mov rax, rdx          ; Colocar el resultado final en RAX
+    ; Call RDTSC to generate a pseudo-random number
+    rdtsc                  ; Read the time-stamp counter
+    mov rax, rdx          ; Use the high part of the timestamp as base
+    xor rdx, rdx          ; Clear RDX
+    mov rbx, 3            ; Divisor (upper range)
+    div rbx               ; Divide by 3 (RAX = quotient, RDX = remainder)
+    add rdx, 1            ; Adjust range to 1-3
+    mov rax, rdx          ; Move final result into RAX
 
-    ; Restaurar los registros
+    ; Restore registers
     pop rdx
     pop rcx
     pop rbx
