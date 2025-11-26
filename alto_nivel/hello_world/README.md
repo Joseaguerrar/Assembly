@@ -1,9 +1,9 @@
     # Hello world
 
-    ## Instrucciones
+    ## Instructions
 
-    1. Crear una carpeta en la carpeta home de tu usuario con el nombre hello_world.
+    1. Create a folder in the folder home from your user with the name hello_world.
 
-    ## Descripción
+    ## Description
 
-    En este ejercicio se va a implementar una función que imprime "Hello world!" en la consola pero complementado con alto nivel de ensamblador.
+    In this excersise a function that prints "Hello world!" through console but complemented with high level assembly language will be implemented.
