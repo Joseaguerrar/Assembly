@@ -1,4 +1,4 @@
-// Nombres: Jose Guerra (C33510) y Jerson Bonilla (C31225)
+// Names: Jose Guerra (C33510) and Jerson Bonilla (C31225)
 
 #include <iostream>
 #include <cstring>
@@ -8,18 +8,18 @@ using namespace std;
 extern "C" long convertir_a_leet (char*);
 
 int main () {
-    // Reservar espacio para el input
+    // Reserve space for the input
     char input[100];
     
-    // Pedir cadena
-    cout << "Introduce una frase: ";
+    // Ask for the string
+    cout << "Enter a phrase: ";
     cin.getline(input, 100);
 
-    // Traducir
+    // Translate
     convertir_a_leet(input);
 
-    // Mostrar traducción
-    cout << "Traducción a l337: " << input << std::endl;
+    // Show translation
+    cout << "Translation to l337: " << input << std::endl;
 
     return 0;
 }
