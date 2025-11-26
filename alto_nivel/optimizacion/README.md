@@ -1,38 +1,42 @@
-# Ejercicio de Optimización en Ensamblador: Intercambio de Cuadrantes en una Matriz
-## Descripción
-Este proyecto implementa un programa en ensamblador que realiza el intercambio de cuadrantes en una matriz de 4x4. La matriz está representada en memoria con valores iniciales, y el programa utiliza instrucciones de ensamblador para reorganizar los elementos según la siguiente operación:
+# Assembly Optimization Exercise: Quadrant Swapping in a Matrix
+## Description
+This project implements an assembly program that performs quadrant swapping in a 4x4 matrix. The matrix is represented in memory with initial values, and the program uses assembly instructions to reorganize the elements according to the following operation:
 
-Intercambiar el cuadrante superior izquierdo con el cuadrante inferior derecho.
-Intercambiar el cuadrante superior derecho con el cuadrante inferior izquierdo.
-El programa aplica varias optimizaciones de rendimiento basadas en las recomendaciones de Agner Fog en su manual de optimización de ensamblador. Estas optimizaciones están orientadas a mejorar la eficiencia en términos de tiempo de ejecución y uso de espacio en la memoria caché.
+- Swap the upper-left quadrant with the lower-right quadrant.  
+- Swap the upper-right quadrant with the lower-left quadrant.
 
-## Compilación y Ejecución
-Para compilar y ejecutar este código, se recomienda utilizar el ensamblador nasm y un entorno Linux compatible con llamadas al sistema de 64 bits.
+The program applies several performance optimizations based on Agner Fog’s recommendations from his assembly optimization manual. These optimizations aim to improve efficiency in terms of execution time and cache memory usage.
 
-### Compilar el archivo de ensamblador
+## Compilation and Execution
+To compile and run this code, it is recommended to use the NASM assembler and a Linux environment compatible with 64-bit system calls.
+
+### Compile the assembly file
 nasm -f elf64 -o ejercicio_3_optimized_asm.o ejercicio_3_optimized.asm
 
-### Enlazar el archivo objeto
+### Link the object file
 ld -o ejercicio_3_optimized ejercicio_3_optimized_asm.o
 
-### Ejecutar el programa
+### Run the program
 ./ejercicio_3_optimized
 
 
-### Optimizaciones Aplicadas
-El código incluye tres optimizaciones clave para mejorar el rendimiento, todas basadas en los capítulos 9 y 10 del manual de Agner Fog sobre optimización de ensamblador.
+## Applied Optimizations
+The code includes three key optimizations to improve performance, all based on chapters 9 and 10 of Agner Fog’s assembly optimization manual.
 
-### Optimización 1: Evitar Dependencias Falsas
-Descripción: En el código original, se usaban registros parciales (ax, bx), lo cual puede causar dependencias falsas que limitan la ejecución fuera de orden.
-Cambio Aplicado: Se reemplazaron los registros parciales (ax, bx) por registros completos (rax, rbx).
-Beneficio: Esto permite que el procesador maneje las instrucciones de manera más eficiente, ya que evita esperas innecesarias al procesar los registros.
-### Optimización 2: Minimización del Tamaño de Constantes y Direcciones
-Descripción: Para reducir el tamaño del código y hacer un uso más eficiente de la caché, es importante minimizar el uso de constantes y direcciones largas.
-Cambio Aplicado: Se almacenó la dirección base de la matriz en el registro rdx y se utilizaron desplazamientos relativos en lugar de recalcular la dirección base en cada instrucción.
-Beneficio: Esto reduce el tamaño del código, lo que permite que se ajuste mejor en la caché y mejora la eficiencia general.
-### Optimización 3: Romper Cadenas de Dependencia
-Descripción: Las cadenas de dependencia largas pueden limitar la ejecución fuera de orden, ya que cada instrucción depende de los resultados de la instrucción anterior.
-Cambio Aplicado: Se introdujeron registros adicionales (rcx, rdi) como acumuladores intermedios, lo que permite realizar intercambios sin depender de resultados anteriores para el pipelinening.
-Beneficio: Al reducir la longitud de las cadenas de dependencia, el procesador puede ejecutar instrucciones en paralelo, mejorando el rendimiento.
-## Conclusión
-Este proyecto demuestra cómo la optimización en ensamblador puede mejorar el rendimiento en aplicaciones de bajo nivel. Siguiendo recomendaciones específicas, el código logra una ejecución más rápida y un uso eficiente de la memoria, especialmente en arquitecturas modernas que dependen de la ejecución fuera de orden y la eficiencia de la caché.
+### Optimization 1: Avoiding False Dependencies
+**Description:** In the original code, partial registers (ax, bx) were used, which can cause false dependencies that limit out-of-order execution.  
+**Applied Change:** Partial registers (ax, bx) were replaced with full registers (rax, rbx).  
+**Benefit:** This allows the processor to handle instructions more efficiently by avoiding unnecessary stalls caused by partial register dependencies.
+
+### Optimization 2: Minimizing Constant and Address Sizes
+**Description:** To reduce code size and make more efficient use of cache, it is important to minimize the use of large constants and long addresses.  
+**Applied Change:** The base address of the matrix was stored in the rdx register, and relative offsets were used instead of recalculating the base address in every instruction.  
+**Benefit:** This reduces the code size, allowing it to fit better in the cache and improving overall efficiency.
+
+### Optimization 3: Breaking Dependency Chains
+**Description:** Long dependency chains can limit out-of-order execution, since each instruction depends on the results of the previous one.  
+**Applied Change:** Additional registers (rcx, rdi) were introduced as intermediate accumulators, allowing swaps to be performed without relying on earlier results for pipelining.  
+**Benefit:** By reducing dependency chain length, the processor can execute instructions in parallel, improving performance.
+
+## Conclusion
+This project demonstrates how assembly optimization can improve performance in low-level applications. By following specific recommendations, the code achieves faster execution and efficient memory usage, especially on modern architectures that rely on out-of-order execution and cache efficiency.
