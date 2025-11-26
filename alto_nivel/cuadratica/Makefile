@@ -1,42 +1,42 @@
-# Nombre del ejecutable
-EXECUTABLE = cuadratica
+# Executable name
+EXECUTABLE = cuadratic
 
-# Archivos fuente
-ASM_SRC = cuadratica.asm
-CPP_SRC = cuadratica.cpp
+# Source files
+ASM_SRC = cuadratic.asm
+CPP_SRC = cuadratic.cpp
 
-# Archivos objeto
-ASM_OBJ = cuadratica_asm.o
-CPP_OBJ = cuadratica_cpp.o
+# Object files
+ASM_OBJ = cuadratic_asm.o
+CPP_OBJ = cuadratic_cpp.o
 
-# Compilador y ensamblador
+# Compiler and assembler
 NASM = nasm
 GXX = g++
 
-# Opciones de compilación
+# Compiling options
 NASM_FLAGS = -g -f elf64
 GXX_FLAGS = -g -c -no-pie
 LINK_FLAGS = -g -no-pie
 
-# Regla por defecto
+# Default Rule
 compile: $(EXECUTABLE)
 
-# Regla para generar el ejecutable
+# Rule to generate executable
 $(EXECUTABLE): $(ASM_OBJ) $(CPP_OBJ)
 	$(GXX) $(LINK_FLAGS) -o $(EXECUTABLE) $(CPP_OBJ) $(ASM_OBJ)
 
-# Regla para compilar el ensamblador
+# Rule to compile assembler
 $(ASM_OBJ): $(ASM_SRC)
 	$(NASM) $(NASM_FLAGS) -o $(ASM_OBJ) $(ASM_SRC)
 
-# Regla para compilar el código C++
+# Rule to compile the C++ code
 $(CPP_OBJ): $(CPP_SRC)
 	$(GXX) $(GXX_FLAGS) -o $(CPP_OBJ) $(CPP_SRC)
 
-# Limpieza de archivos objeto y ejecutable
+# Cleaning of object files and executable
 clean:
 	rm -f $(ASM_OBJ) $(CPP_OBJ) $(EXECUTABLE)
 
-# Compilar, limpiar y ejecutar
+# Compile, clean and execute
 run: clean compile
 	./$(EXECUTABLE)
