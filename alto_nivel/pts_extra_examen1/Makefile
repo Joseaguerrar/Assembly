@@ -1,42 +1,42 @@
-# Nombre del ejecutable
+# Executable name
 EXECUTABLE = traductor
 
-# Archivos fuente
+# Source files
 ASM_SRC = leetTraductor.asm
 CPP_SRC = leetTraductor.cpp
 
-# Archivos objeto
+# Object files
 ASM_OBJ = leetTraductor_asm.o
 CPP_OBJ = leetTraductor_cpp.o
 
-# Compilador y ensamblador
+# Compiler and assembler
 NASM = nasm
 GXX = g++
 
-# Opciones de compilación
+# Compilation options
 NASM_FLAGS = -g -f elf64
 GXX_FLAGS = -g -c -no-pie
 LINK_FLAGS = -g -no-pie
 
-# Regla por defecto
+# Default rule
 compile: $(EXECUTABLE)
 
-# Regla para generar el ejecutable
+# Rule to generate the executable
 $(EXECUTABLE): $(ASM_OBJ) $(CPP_OBJ)
 	$(GXX) $(LINK_FLAGS) -o $(EXECUTABLE) $(CPP_OBJ) $(ASM_OBJ)
 
-# Regla para compilar el ensamblador
+# Rule to compile the assembly file
 $(ASM_OBJ): $(ASM_SRC)
 	$(NASM) $(NASM_FLAGS) -o $(ASM_OBJ) $(ASM_SRC)
 
-# Regla para compilar el código C++
+# Rule to compile the C++ code
 $(CPP_OBJ): $(CPP_SRC)
 	$(GXX) $(GXX_FLAGS) -o $(CPP_OBJ) $(CPP_SRC)
 
-# Limpieza de archivos objeto y ejecutable
+# Clean object files and executable
 clean:
 	rm -f $(ASM_OBJ) $(CPP_OBJ) $(EXECUTABLE)
 
-# Compilar, limpiar y ejecutar
+# Compile, clean, and run
 run: clean compile
 	./$(EXECUTABLE)
