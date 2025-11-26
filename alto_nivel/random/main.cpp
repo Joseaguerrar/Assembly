@@ -1,10 +1,10 @@
 #include <iostream>
 
-extern "C" int random_number(); // Declaración de la función ensamblador
+extern "C" int random_number(); // Declaration of the assembly function
 
 int main(int argc, char *argv[]) {
-    std::cout << "Generando número aleatorio..." << std::endl;
-    int result = random_number(); // Llamar a la función
-    std::cout << "Número generado: " << result << std::endl;
+    std::cout << "Generating random number..." << std::endl;
+    int result = random_number(); // Call the function
+    std::cout << "Generated number: " << result << std::endl;
     return 0;
 }
