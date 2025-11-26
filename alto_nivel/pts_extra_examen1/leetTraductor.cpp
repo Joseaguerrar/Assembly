@@ -5,7 +5,7 @@
 
 using namespace std;
 
-extern "C" long convertir_a_leet (char*);
+extern "C" long convert_to_leet (char*);
 
 int main () {
     // Reserve space for the input
@@ -16,10 +16,11 @@ int main () {
     cin.getline(input, 100);
 
     // Translate
-    convertir_a_leet(input);
+    convert_to_leet(input);
 
     // Show translation
     cout << "Translation to l337: " << input << std::endl;
 
     return 0;
 }
+
