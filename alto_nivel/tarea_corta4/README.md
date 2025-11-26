@@ -1,9 +1,9 @@
-    # Tarea corta 4
+# Short Assignment 4
 
-    ## Instrucciones
+## Instructions
 
-    1. Crear una carpeta en la carpeta home de tu usuario con el nombre tarea_corta4.
+1. Create a folder in your user's home directory named `tarea_corta4`.
 
-    ## Descripción
+## Description
 
-    En este ejercicio se va a implementar una función que recibe un número y en base a eso da la sucesión de números de Fibonacci.
+In this exercise, you will implement a function that receives a number and, based on it, outputs the Fibonacci number sequence.
