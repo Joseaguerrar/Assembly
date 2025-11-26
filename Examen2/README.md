@@ -1,143 +1,154 @@
-# Examen 2
-Esta carpeta contiene la parte programada del examen 2.
-## Enunciado
-Para un sistema muy particular de IoT, se necesita almacenar de la forma más eficiente posible (es decir, que use la menor cantidad de bits posible) datos del momento en el que se tomaron las mediciones de un sensor(timestamp). No importa la fecha completa, ni la hora detalladamente, solo se requieren los siguientes datos:
+# Exam 2
+This folder contains the programmed portion of Exam 2.
 
-* Si el dato se tomó antes del mediodía o después del mediodía.
-* El día de la semana(considerando de Lunes a Domingo).
-* El mes del año.
+## Instructions
+For a very particular IoT system, it is necessary to store sensor measurement timestamps in the most efficient way possible (i.e., using the smallest number of bits). The complete date and detailed time are not required—only the following data:
 
-Haga lo siguiente: 
-1. Proponga una forma de almacenar esos datos en la menor cantidad posible de bits (considerando que debe manipular de alguna forma los bits de un tipo de datos ya usado en C/C++). Agregue al menos 3 ejemplos de como se vería un escenario específico (ej. Lunes de Enero a las 9 am, se vería así...). Ponga su propuesta y los ejemplos en el Archivo README que debe entregar.
+* Whether the data was taken before noon or after noon.
+* The day of the week (Monday to Sunday).
+* The month of the year.
 
-2. Escriba un programa usando C/C++ y lenguaje ensamblador que solicite al usuario un número, letra o letras, o lo que sea que usted considere apropiado, que representa un timestamp (según su propuesta), para que luego imprima a qué día de la semana, momento del día y mes corresponde el dato que se leyó.
+Do the following:
+1. Propose a way to store these data using the smallest possible number of bits (considering that you must manipulate the bits of a data type already used in C/C++). Add at least 3 examples of how a specific scenario would look (e.g., Monday in January at 9 AM would look like this...). Put your proposal and examples in the README file you must submit.
 
-## Notas Adicionales
-También debe ser posible indicar a su programa de alguna forma el momento del día, el día de la semana y mes del año para que genere un timestamp.
+2. Write a program using C/C++ and assembly language that asks the user for a number, letter, or whatever you consider appropriate to represent a timestamp (according to your proposal), and then print which day of the week, time of day, and month correspond to the data read.
 
-La generación del tiemstamp o la interpretación del mismo deben imprimir el resultado en pantalla. La generación y la interpretación deben realizarse en lenguaje ensamblador. La entrada y salida de datos se puede hacer en alto nivel.
+## Additional Notes
+It must also be possible to provide your program with the time of day, day of the week, and month of the year so it can generate a timestamp.
 
-Su código debe ser original, debe estar ordenado (indentado), variables, etiquetas, etc, deben tener nombres significativos, y debe documentar internamente.
+The generation or interpretation of the timestamp must print the result on screen. Both generation and interpretation must be done in assembly language. Input and output can be done in high-level code.
 
-## Propuesta de Almacenamiento Eficiente del Timestamp
+Your code must be original, well-organized (proper indentation), variable names and labels must be meaningful, and internal documentation is required.
 
-Dado que necesitamos almacenar los datos en la menor cantidad de bits posible, los dividimos de la siguiente manera:
+## Efficient Timestamp Storage Proposal
 
-1. Momento del día (AM/PM):
+Since we need to store the data using the fewest bits possible, we distribute the information as follows:
 
-Solo hay dos valores posibles: antes del mediodía (AM) o después del mediodía (PM).
-Necesitamos 1 bit para representar esta información.
-0 = AM
+1. Time of day (AM/PM):
+
+There are only two possible values: before noon (AM) or after noon (PM).  
+We need 1 bit to represent this information.  
+0 = AM  
 1 = PM
 
-2. Día de la semana:
+2. Day of the week:
 
-Hay 7 días (Lunes a Domingo).
-Para representar 7 valores, necesitamos 3 bits.
-Ejemplo: 000 = Lunes, 001 = Martes, ..., 110 = Domingo.
+There are 7 days (Monday to Sunday).  
+To represent 7 values, we need 3 bits.  
+Example: 000 = Monday, 001 = Tuesday, ..., 110 = Sunday.
 
-3. Mes del año:
+3. Month of the year:
 
-Hay 12 meses (Enero a Diciembre).
-Para representar 12 valores, necesitamos 4 bits.
-Ejemplo: 0001 = Enero, 0010 = Febrero, ..., 1100 = Diciembre.
-### Total de bits necesarios:
-1 (Momento del día) + 3 (Día de la semana) + 4 (Mes) = 8 bits.
+There are 12 months (January to December).  
+To represent 12 values, we need 4 bits.  
+Example: 0001 = January, 0010 = February, ..., 1100 = December.
 
-Esto significa que podemos representar un timestamp completo en un solo byte (8 bits).
+### Total bits needed:
+1 (Time of day) + 3 (Day of the week) + 4 (Month) = 8 bits.
 
-## Ejeplos de Timestamp
-Supongamos los siguientes escenarios:
+This means a full timestamp can be stored in just one byte (8 bits).
 
-1. Lunes en Enero antes del mediodía:
+## Timestamp Examples
+Let’s suppose the following scenarios:
 
-AM = 0
-Lunes = 000
-Enero = 0001
-Timestamp en binario: 00000001
-Representación hexadecimal: 0x01
+1. Monday in January before noon:
 
-2. Viernes en Junio después del mediodía:
+AM = 0  
+Monday = 000  
+January = 0001  
+Binary timestamp: **00000001**  
+Hex representation: **0x01**
 
-PM = 1
-Viernes = 100
-Junio = 0110
-Timestamp en binario: 11000110
-Representación hexadecimal: 0xC6
+2. Friday in June after noon:
 
-3. Domingo en Diciembre antes del mediodía:
+PM = 1  
+Friday = 100  
+June = 0110  
+Binary timestamp: **11000110**  
+Hex representation: **0xC6**
 
-AM = 0
-Domingo = 110
-Diciembre = 1100
-Timestamp en binario: 01101100
-Representación hexadecimal: 0x6C
+3. Sunday in December before noon:
 
-## Explicación del Flujo del Programa
-### Generación del Timestamp
-#### Entrada de datos:
-El programa solicita al usuario tres valores:
-Momento del día (AM/PM).
-Día de la semana (Lunes a Domingo).
-Mes del año (Enero a Diciembre).
-#### Validación:
-Se asegura que las entradas sean válidas:
-Momento del día: 0 o 1.
-Día de la semana: 0 a 6.
-Mes del año: 1 a 12.
-#### Construcción del Timestamp:
-La entrada del usuario se convierte a un único byte utilizando operaciones bit a bit.
-Se almacena el momento del día en el bit más significativo (MSB).
-Los bits restantes contienen el día de la semana y el mes.
-#### Resultado:
-El timestamp generado se imprime en formato hexadecimal.
-### Decodificación del Timestamp
-#### Entrada del timestamp:
-El programa solicita al usuario un número hexadecimal representando el timestamp.
-#### Decodificación:
-Mediante operaciones bit a bit, el programa separa los valores:
-Momento del día (bit más significativo).
-Día de la semana (3 bits intermedios).
-Mes (4 bits menos significativos).
-#### Resultado:
-Imprime en lenguaje natural:
-Momento del día: "antes del mediodía" o "después del mediodía".
-Día de la semana: "Lunes", "Martes", ..., "Domingo".
-Mes: "Enero", "Febrero", ..., "Diciembre".
-## Manual de Uso
-Este manual describe cómo compilar, ejecutar y probar el programa utilizando el Makefile proporcionado.
+AM = 0  
+Sunday = 110  
+December = 1100  
+Binary timestamp: **01101100**  
+Hex representation: **0x6C**
 
-### Requisitos Previos
-1. Compiladores y herramientas necesarias:
-g++: Para compilar el código en C++.
-nasm: Para ensamblar el código en lenguaje ensamblador.
-Un sistema operativo compatible con las herramientas mencionadas (Linux recomendado).
-2. Estructura del proyecto:
-Archivos del proyecto:
-main.cpp: Archivo principal en C++ que gestiona la entrada y salida de datos.
-timestamp.asm: Archivo ensamblador que implementa la generación y decodificación del timestamp.
-Makefile: Archivo de automatización para compilar y ejecutar el programa.
-### Comandos Disponibles en el Makefile
-### Compilar el programa:
+## Program Flow Explanation
+### Timestamp Generation
+#### Input:
+The program asks the user for three values:
+* Time of day (AM/PM).
+* Day of the week (Monday to Sunday).
+* Month of the year (January to December).
 
-Comando en terminal:
+#### Validation:
+The program ensures inputs are valid:
+* Time of day: 0 or 1.
+* Day of the week: 0 to 6.
+* Month: 1 to 12.
 
-1. make
+#### Constructing the Timestamp:
+User input is converted into a single byte using bitwise operations.  
+The time of day is stored in the most significant bit (MSB).  
+The remaining bits store the day of the week and month.
 
-Este comando compila el programa, generando el ejecutable en el directorio bin/ bajo el nombre program.
+#### Result:
+The generated timestamp is printed in hexadecimal.
 
-### Ejecutar el programa:
+### Timestamp Decoding
+#### Timestamp Input:
+The program asks the user for a hexadecimal number representing the timestamp.
 
-Comando en terminal:
+#### Decoding:
+Using bitwise operations, the program extracts:
+* Time of day (most significant bit).
+* Day of the week (3 middle bits).
+* Month (4 least significant bits).
 
-2. make run
+#### Result:
+The program prints the meaning in natural language:
+* Time of day: “before noon” or “after noon”.
+* Day of the week: “Monday”, “Tuesday”, ..., “Sunday”.
+* Month: “January”, “February”, ..., “December”.
 
-Este comando compila el programa (si no está compilado) y lo ejecuta directamente. Útil para pruebas rápidas.
+## User Manual
+This manual describes how to compile, run, and test the program using the provided Makefile.
 
-### Limpiar los archivos generados:
+### Requirements
+1. Necessary tools:
+* g++: To compile the C++ code.
+* nasm: To assemble the assembly code.
+* A compatible operating system (Linux recommended).
 
-Comando en terminal:
+2. Project structure:
+Project files:
+* main.cpp: Main C++ file that handles input and output.
+* timestamp.asm: Assembly file implementing timestamp generation and decoding.
+* Makefile: Compilation automation file.
 
-3. make clean
+### Available Makefile Commands
+### Compile the program:
 
-Este comando elimina el directorio build/ (archivos objeto) y bin/ (ejecutable), dejando el proyecto en su estado inicial.
+Terminal command:
+
+1. `make`
+
+This command compiles the program, generating the executable in the **bin/** directory under the name **program**.
+
+### Run the program:
+
+Terminal command:
+
+2. `make run`
+
+This command compiles the program (if not already compiled) and executes it directly. Useful for quick tests.
+
+### Clean generated files:
+
+Terminal command:
+
+3. `make clean`
+
+This command removes the **build/** directory (object files) and **bin/** (executable), returning the project to its initial state.
