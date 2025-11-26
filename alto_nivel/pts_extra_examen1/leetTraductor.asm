@@ -1,99 +1,99 @@
-; Nombres: Jose Guerra (C33510) y Jerson Bonilla (C31225)
+; Names: Jose Guerra (C33510) and Jerson Bonilla (C31225)
 
 section .note.GNU-stack noalloc noexec nowrite progbits
 
 section .text
-global convertir_a_leet
-convertir_a_leet:
-    push rbx                ; Guardar todos los registros
-    mov rsi, rdi            ; Obtener el puntero al primer argumento
+global convert_to_leet
+convert_to_leet:
+    push rbx                ; Save all registers
+    mov rsi, rdi            ; Get pointer to the first argument
 
-convertir_loop:
-    mov al, [rsi]           ; Cargar caracter actual a AL
-    cmp al, 0               ; Verificar si es el final de la cadena
-    je convertir_fin
+convert_loop:
+    mov al, [rsi]           ; Load current character into AL
+    cmp al, 0               ; Check if it's the end of the string
+    je convert_end
 
-    ; Comparar caracteres con 'a'
+    ; Compare character with 'a'
     cmp al, 'a'            
-    jne comprobar_b
-    mov al, '4'                 ; Cambiar 'a' por '4'
-    jmp guardar
+    jne check_b
+    mov al, '4'                 ; Change 'a' to '4'
+    jmp save
 
-comprobar_b:
-    ; Comparar caracteres con 'b'
+check_b:
+    ; Compare character with 'b'
     cmp al, 'b'
-    jne comprobar_e
-    mov al, '8'                 ; Cambiar 'b' por '8'
-    jmp guardar
+    jne check_e
+    mov al, '8'                 ; Change 'b' to '8'
+    jmp save
 
-comprobar_e:
-    ; Comparar caracteres con 'e'
+check_e:
+    ; Compare character with 'e'
     cmp al, 'e'
-    jne comprobar_g
-    mov al, '3'                 ; Cambiar 'e' por '3'
-    jmp guardar
+    jne check_g
+    mov al, '3'                 ; Change 'e' to '3'
+    jmp save
 
-comprobar_g:
-    ; Comparar caracteres con 'g'
+check_g:
+    ; Compare character with 'g'
     cmp al, 'g'
-    jne comprobar_l
-    mov al, '9'                 ; Cambiar 'g' por '9'
-    jmp guardar
+    jne check_l
+    mov al, '9'                 ; Change 'g' to '9'
+    jmp save
 
-comprobar_l:
-    ; Comparar caracteres con 'l'
+check_l:
+    ; Compare character with 'l'
     cmp al, 'l'
-    jne comprobar_r
-    mov al, '1'                 ; Cambiar 'l' por '1'
-    jmp guardar
+    jne check_r
+    mov al, '1'                 ; Change 'l' to '1'
+    jmp save
 
-comprobar_r:
-    ; Comparar caracteres con 'r'
+check_r:
+    ; Compare character with 'r'
     cmp al, 'r'
-    jne comprobar_s
-    mov al, '2'                 ; Cambiar 'r' por '2'
-    jmp guardar
+    jne check_s
+    mov al, '2'                 ; Change 'r' to '2'
+    jmp save
 
-comprobar_s:
-    ; Comparar caracteres con 's'
+check_s:
+    ; Compare character with 's'
     cmp al, 's'
-    jne comprobar_t
-    mov al, '5'                 ; Cambiar 's' por '5'
-    jmp guardar
+    jne check_t
+    mov al, '5'                 ; Change 's' to '5'
+    jmp save
 
-comprobar_t:
-    ; Comparar caracteres con 't'
+check_t:
+    ; Compare character with 't'
     cmp al, 't'
-    jne comprobar_z
-    mov al, '7'                 ; Cambiar 't' por '7'
-    jmp guardar
+    jne check_z
+    mov al, '7'                 ; Change 't' to '7'
+    jmp save
 
-comprobar_z:
-    ; Comparar caracteres con 'z'
+check_z:
+    ; Compare character with 'z'
     cmp al, 'z'
-    jne comprobar_o
-    mov al, '2'                 ; Cambiar 'z' por '2'
-    jmp guardar
+    jne check_o
+    mov al, '2'                 ; Change 'z' to '2'
+    jmp save
 
-comprobar_o:
-    ; Comparar caracteres con 'o'
+check_o:
+    ; Compare character with 'o'
     cmp al, 'o'
-    jne comprobar_i
-    mov al, '0'                 ; Cambiar 'o' por '0'
-    jmp guardar
+    jne check_i
+    mov al, '0'                 ; Change 'o' to '0'
+    jmp save
 
-comprobar_i:
-    ; Comparar caracteres con 'i'
+check_i:
+    ; Compare character with 'i'
     cmp al, 'i'
-    jne guardar
-    mov al, '1'                 ; Cambiar 'i' por '1'
+    jne save
+    mov al, '1'                 ; Change 'i' to '1'
 
-guardar:
-    mov [rsi], al               ; Guardar el valor en la cadena
-    inc rsi                     ; Avanzar al siguiente caracter
+save:
+    mov [rsi], al               ; Store the value in the string
+    inc rsi                     ; Move to the next character
 
-    jmp convertir_loop          ; Repetir el proceso
+    jmp convert_loop          ; Repeat the process
 
-convertir_fin:
-    pop rbx                     ; Restaurar los registros
+convert_end:
+    pop rbx                     ; Restore registers
     ret
