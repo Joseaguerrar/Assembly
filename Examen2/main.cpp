@@ -6,11 +6,11 @@
 
 using namespace std;
 
-// Prototipos de las funciones ensambladoras
+// Prototypes of the assembly functions
 extern "C" int generateTimestamp(int timeOfDay, int dayOfWeek, int month);
 extern "C" int decodeTimestamp(int timestamp, int* timeOfDay, int* dayOfWeek, int* month);
 
-// Vectores de días de la semana y meses
+// Vectors of days of the week and months
 const vector<string> daysOfWeek = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
 const vector<string> monthsOfYear = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
 
@@ -20,7 +20,7 @@ void decodeTimestampOption();
 int main() {
     string option;
 
-    // Bucle para la selección de una opción inicial
+    // Loop for selecting an initial option
     while (true) {
         cout << "Seleccione una opción:\n"
              << "1. Generar timestamp\n"
@@ -36,19 +36,19 @@ int main() {
             break;
         } else {
             cerr << "Opción no válida. Por favor, seleccione '1' o '2'.\n";
-            cin.clear(); // Limpiar el estado de cin
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar entrada inválida
+            cin.clear(); // Clear cin state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore invalid input
         }
     }
 
     return 0;
 }
 
-// Función para generar el timestamp
+// Function to generate the timestamp
 void generateTimestampOption() {
     int timeOfDay, dayOfWeek, month;
 
-    // Momento del día
+    // Time of day
     while (true) {
         cout << "Introduzca el momento del día (0 = antes del mediodía, 1 = después del mediodía): ";
         cin >> timeOfDay;
@@ -61,7 +61,7 @@ void generateTimestampOption() {
         }
     }
 
-    // Día de la semana
+    // Day of the week
     while (true) {
         cout << "Seleccione un día de la semana:\n";
         for (size_t i = 0; i < daysOfWeek.size(); ++i) {
@@ -78,7 +78,7 @@ void generateTimestampOption() {
         }
     }
 
-    // Mes del año
+    // Month of the year
     while (true) {
         cout << "Seleccione un mes del año:\n";
         for (size_t i = 0; i < monthsOfYear.size(); ++i) {
@@ -99,43 +99,43 @@ void generateTimestampOption() {
     cout << "Timestamp generado: 0x" << hex << uppercase << timestamp << "\n";
 }
 
-// Función para decodificar el timestamp
+// Function to decode the timestamp
 void decodeTimestampOption() {
     string hexInput;
     int timestamp;
 
-    // Bucle para solicitar una entrada válida en formato hexadecimal.
+    // Loop to request a valid input in hexadecimal format.
     while (true) {
         cout << "Introduzca el timestamp en formato hexadecimal: ";
         cin >> hexInput;
         try {
-            // Convertir la entrada de cadena hexadecimal a un número entero.
-            // stoi lanza una excepción si la entrada no es válida.
+            // Convert the hexadecimal string input to an integer.
+            // stoi throws an exception if the input is not valid.
             timestamp = stoi(hexInput, nullptr, 16);
             break;
         } catch (invalid_argument&) {
-            // Mensaje de error si la entrada no es un valor hexadecimal válido.
+            // Error message if the input is not a valid hexadecimal value.
             cerr << "Entrada no válida para el timestamp. Por favor, introduzca un valor hexadecimal válido.\n";
         }
     }
 
-    int timeOfDay, dayOfWeek, month; // Variables para almacenar los componentes decodificados del timestamp.
+    int timeOfDay, dayOfWeek, month; // Variables to store the decoded components of the timestamp.
 
-    // Llamada a la función ensambladora para decodificar el timestamp.
-    // Se espera que esta función almacene los valores decodificados en las variables referenciadas.
+    // Call to the assembly function to decode the timestamp.
+    // This function is expected to store the decoded values in the referenced variables.
     int valid = decodeTimestamp(timestamp, &timeOfDay, &dayOfWeek, &month);
 
-    // Verificar si el timestamp proporcionado es válido según la lógica de la función ensambladora.
+    // Verify if the provided timestamp is valid according to the logic of the assembly function.
     if (valid == 0) {
-        // Si no es válido, mostrar un mensaje de error al usuario.
+        // If it is not valid, show an error message to the user.
         cerr << "Ese no es un timestamp válido.\n";
         cerr << "Por favor, genere un timestamp válido y vuelva a intentarlo.\n";
         return;
     }
 
-    // Mostrar los resultados decodificados al usuario en formato legible.
+    // Display the decoded results to the user in a readable format.
     cout << "Resultado: "
-         << (timeOfDay == 0 ? "antes del mediodía" : "después del mediodía") << ", " // Momento del día.
-         << "Día de la semana: " << daysOfWeek[dayOfWeek] << ", " // Día de la semana.
-         << "Mes: " << monthsOfYear[month - 1] << "\n"; // Mes del año (ajustado al índice base 0).
+         << (timeOfDay == 0 ? "antes del mediodía" : "después del mediodía") << ", " // Time of day.
+         << "Día de la semana: " << daysOfWeek[dayOfWeek] << ", " // Day of the week.
+         << "Mes: " << monthsOfYear[month - 1] << "\n"; // Month of the year (adjusted to zero-based index).
 }
