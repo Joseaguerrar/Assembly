@@ -1,23 +1,23 @@
-# Nombre del ejecutable
+# Executable name
 TARGET = main
 
-# Archivos fuente
+# Source files
 ASM_SRC = random_number.asm
 CPP_SRC = main.cpp
 
-# Archivos intermedios
+# Intermediate files
 ASM_OBJ = $(ASM_SRC:.asm=.o)
 CPP_OBJ = $(CPP_SRC:.cpp=.o)
 
-# Compiladores
+# Compilers
 NASM = nasm
 CXX = g++
 
-# Opciones de compilación
+# Compilation options
 NASMFLAGS = -f elf64
 CXXFLAGS = -Wall -O2
 
-# Reglas
+# Rules
 all: $(TARGET)
 
 $(TARGET): $(ASM_OBJ) $(CPP_OBJ)
