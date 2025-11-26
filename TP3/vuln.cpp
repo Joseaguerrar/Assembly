@@ -2,23 +2,23 @@
 #include <unistd.h>
 #include <cstdio>
 
-// Función secreta no invocada
+// Secret function not invoked
 void secretFunction() {
     printf("Congratulations!\n");
     printf("You have entered the secret function!\n");
     return;
 }
 
-// Función vulnerable
+// Vulnerable function
 int vuln() {
-    // Definir variables
+    // Define variables
     char array[400];
 
-    // Leer el input del usuario
+    // Read user input
     printf("Ingrese texto:\n");
     fgets(array, sizeof(array), stdin);
 
-    // Imprimier el input del usuario
+    // Print user input
     printf("You entered: %s\n", array);
 
     // Return success
@@ -26,7 +26,7 @@ int vuln() {
 }
 
 int main(int argc, char *argv[]) {
-    // Llamar a la funcion vulnerable
+    // Call the vulnerable function
     vuln();
 
     // Return success
@@ -34,5 +34,5 @@ int main(int argc, char *argv[]) {
 }
 
 
-// Para compilar sin proteccion de la pila:
+// To compile without stack protection:
 // gcc -fno-stack-protector -z execstack -mpreferred-stack-boundary=4 -o vuln -ggdb vuln.cpp
