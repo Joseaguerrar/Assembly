@@ -1,31 +1,31 @@
 section .text
 global subtract_life
 
-; La función subtract_life recibe tres parámetros:
-; - Primer parámetro (rdi): vida del jugador
-; - Segundo parámetro (rsi): cantidad a modificar (puede ser daño o curación)
-; - Tercer parámetro (rdx): indicador (1 = resta, 2 = suma)
-; Devuelve:
-; - Resultado (rax): nueva vida del jugador
+; The function subtract_life recieves 3 parameters:
+; - First parameter (rdi): players life
+; - Second parameter (rsi): amount of life to modify (it can be damage or healing)
+; - Third parameter (rdx): indicator (1 = subtraction, 2 = addition)
+; Returns:
+; - Result (rax): new players life
 
 subtract_life:
-    ; Comprueba el tercer argumento (rdx)
-    cmp rdx, 1          ; ¿Es igual a 1? (restar)
-    je do_subtract      ; Si es igual a 1, salta a do_subtract
+    ; Checks third argument (rdx)
+    cmp rdx, 1          ; ¿Is equal to 1? (subtract)
+    je do_subtract      ; If it is equal to 1, jumps to do_subtract
 
-    cmp rdx, 2          ; ¿Es igual a 2? (sumar)
-    je do_add           ; Si es igual a 2, salta a do_add
+    cmp rdx, 2          ; ¿Is equal to 2? (Add)
+    je do_add           ; If its equal to 2, jumps to do_add
 
-    ; Caso por defecto: no hace nada, regresa la vida original
+    ; Default case: does not do anything, returns original life
     mov rax, rdi
     ret
 
 do_subtract:
-    sub rdi, rsi        ; Resta el segundo parámetro al primero
-    mov rax, rdi        ; Mueve el resultado a rax
+    sub rdi, rsi        ; Subtracts second parameter to first one
+    mov rax, rdi        ; Moves result to  rax
     ret
 
 do_add:
-    add rdi, rsi        ; Suma el segundo parámetro al primero
-    mov rax, rdi        ; Mueve el resultado a rax
+    add rdi, rsi        ; Adds second parameter to first one
+    mov rax, rdi        ; Moves result to  rax
     ret
