@@ -1,33 +1,33 @@
-# Nombre del ejecutable
+# Executable name
 EXECUTABLE = ejercicio3
 
-# Archivos fuente
+# Source files
 ASM_SRC = ejercicio_3.asm
 
-# Archivos objeto
+# Object files
 ASM_OBJ = ejercicio_3_asm.o
 
-# Compilador y ensamblador
+# Compiler and assembler
 NASM = nasm
 
-# Opciones de compilación
+# Compilation options
 NASM_FLAGS = -g -f elf64
 
-# Regla por defecto
+# Default rule
 compile: $(EXECUTABLE)
 
-# Regla para generar el ejecutable
+# Rule to generate the executable
 $(EXECUTABLE): $(ASM_OBJ)
 	ld -o $(EXECUTABLE) $(ASM_OBJ)
 
-# Regla para compilar el ensamblador
+# Rule to compile the assembly file
 $(ASM_OBJ): $(ASM_SRC)
 	$(NASM) $(NASM_FLAGS) -o $(ASM_OBJ) $(ASM_SRC)
 
-# Limpieza de archivos objeto y ejecutable
+# Clean object files and executable
 clean:
 	rm -f $(ASM_OBJ) $(EXECUTABLE)
 
-# Compilar, limpiar y ejecutar
+# Compile, clean, and run
 run: clean compile
 	./$(EXECUTABLE)
