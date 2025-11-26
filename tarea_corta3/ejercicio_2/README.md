@@ -1,19 +1,19 @@
-## Programa en Ensamblador para Calcular Números Primos con la Criba de Eratóstenes
+## Assembly Program to Compute Prime Numbers Using the Sieve of Eratosthenes
 
-### 2. Descripción del Programa
+### 2. Program Description
 
-Escriba un programa en ensamblador (x86-64) que calcule todos los números primos menores o iguales que 101 usando el algoritmo de la criba de Eratóstenes. Para ello, siga las siguientes instrucciones:
+Write an assembly program (x86-64) that computes all prime numbers less than or equal to 101 using the Sieve of Eratosthenes algorithm. Follow the instructions below:
 
-1. **Sección de Datos**:
-   - Reserve espacio para almacenar una matriz de 10x10 números enteros. Cada número se representa en 4 bytes.
-   - Inicialice directamente todos los números requeridos por la criba (de 2 a 101 en este caso) en la matriz.
-   - Defina también un vector de ceros de tamaño suficiente para almacenar los números primos resultado. Este vector debe llamarse `resultado`.
-   - Cualquier otro dato (variable) que necesite lo puede definir, debe documentar su propósito.
+1. **Data Section**:
+   - Reserve space to store a 10x10 matrix of integers. Each number must be represented using 4 bytes.
+   - Directly initialize all the numbers required by the sieve (from 2 to 101 in this case) inside the matrix.
+   - Also define a zero-initialized vector large enough to store the resulting prime numbers. This vector must be named `resultado`.
+   - Any other data (variables) you need may also be defined; you must document their purpose.
 
-2. **Método `_start`**:
-   - En su método `_start` únicamente puede tener: llamados a métodos, asignación de parámetros de métodos (cuando aplique) y código necesario para devolverle el control al sistema operativo.
-   - Debe al menos invocar el método descrito en el siguiente punto.
+2. **`_start` Method**:
+   - Inside your `_start` method, you may only include: method calls, method parameter assignments (when applicable), and the code required to return control to the operating system.
+   - You must at least invoke the method described in the next section.
 
-3. **Método para Extraer Números Primos**:
-   - Escriba un método que se pueda invocar desde `_start` que extraiga los números primos de la matriz de 10x10 usando el algoritmo de la criba de Eratóstenes.
-   - Puede implementar varios métodos para resolver este problema. Sin embargo, desde `_start` solo podrá invocarse uno (el que incluya todos los demás métodos).
+3. **Method to Extract Prime Numbers**:
+   - Write a method that can be invoked from `_start` which extracts the prime numbers from the 10x10 matrix using the Sieve of Eratosthenes algorithm.
+   - You may implement multiple helper methods to solve this problem. However, only *one* method may be invoked directly from `_start` (the one that includes all other method calls).
