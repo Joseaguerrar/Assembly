@@ -1,2 +1,2 @@
-# Ensambla
-repositorio para el curso de ensamblador
+# Assembly
+Repository for Assembly course
