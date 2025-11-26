@@ -1,4 +1,4 @@
-Este ejemplo genera un número aleatorio entre 1 y 3 usando el contador de tiempo de la CPU.
+This example generates a random number between 1 and 3 using the CPU time counter.
 
-Para compilar, ejecutar `make` en la terminal.  
-Para ejecutar, ejecutar `./main`. 
+To compile, run `make` in the terminal.  
+To execute, run `./main`.
