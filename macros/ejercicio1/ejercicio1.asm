@@ -1,7 +1,7 @@
 %macro CreaMult 1
-    ; Verifica que el valor N esté en el rango [0, 100]
+    ; Check that the value N is within the range [0, 100]
     %if %1 < 0 || %1 > 100
-        %error "N fuera del rango [0, 100]. No se generará la tabla."
+        %error "N outside the range [0, 100]. The table will not be generated."
     %else
         Tab_%1:
             %assign i 1
@@ -13,24 +13,24 @@
 %endmacro
 
 section .data
-    ; Generar una tabla de los primeros 15 múltiplos de 8
+    ; Generate a table of the first 15 multiples of 8
     CreaMult 15
 
 section .bss
     global resultado
-    ; Reservar espacio para guardar resultados
+    ; Reserve space to store results
     resultado resw 1
 
 section .text
     global _start
 
 _start:
-    ; Ejemplo: Acceder al 5° múltiplo de 8 (40) en Tab_15
-    mov rdi, 4                 ; Índice 4 (5° elemento, ya que comienza en 0)
-    mov ax, [Tab_15 + rdi * 2] ; Multiplicamos rdi por 2 porque es un word (2 bytes)
-    mov [resultado], ax        ; Guardar el resultado en la variable para inspección
+    ; Example: Access the 5th multiple of 8 (40) in Tab_15
+    mov rdi, 4                 ; Index 4 (5th element, since it starts at 0)
+    mov ax, [Tab_15 + rdi * 2] ; Multiply rdi by 2 because each entry is a word (2 bytes)
+    mov [resultado], ax        ; Store the result in the variable for inspection
 
-    ; Terminar el programa
-    mov eax, 60                ; Código de salida del sistema (sys_exit)
-    xor edi, edi               ; Estado de salida (0)
+    ; Terminate the program
+    mov eax, 60                ; System exit code (sys_exit)
+    xor edi, edi               ; Exit status (0)
     syscall
