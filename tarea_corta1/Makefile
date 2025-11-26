@@ -1,5 +1,3 @@
-#Copyright 2024 Camilo Montero Moya
-
 EXECUTABLE = ejecutable
 
 SRC = $(wildcard *.nasm)
