@@ -1,97 +1,107 @@
-# Tarea programada 2
-## Integrantes: Jose Guerra (C33510) y Jerson Bonilla (C31225)
-# Filtros para imágenes BMP
-Esta tarea aplica cuatro filtros a imágenes BMP utilizando una combinación de código en C++ y ensamblador (ASM). Es una herramienta básica que demuestra el manejo de archivos de imagen BMP y cómo realizar operaciones de procesamiento de imágenes.
+# Programming Assignment 2  
+## Members: Jose Guerra (C33510) and Jerson Bonilla (C31225)
 
-## Objetivo de la tarea
-De los principales objetivos de esta tarea es aplicar los conocimientos aprendidos sobre los registros SSE para aprovechar las instrucciones de empaquetamiento de datos que ofrecen estos registros. Además, aplicar por lo menos 5 optimizaciones en el código para mejorar el rendimiento. 
+# BMP Image Filters  
+This assignment applies four filters to BMP images using a combination of C++ and Assembly (ASM). It is a basic tool demonstrating how to handle BMP image files and perform image-processing operations.
 
-### Optimizaciones aplicadas:
-* **Carga de direcciones de memoria en registros:** Se cargan las direcciones de memoria en registros SSE para minimizar el acceso a memoria. 
-* **Estructura de bucles eficiente:** Los bucles están diseñados para usar un contador decreciente y una comparación directa (jle .end_loop), lo que minimiza las operaciones de control.
-* **Manipulación directa de datos:** Al final de cada filtro, se accede y modifica directamente los bytes de los canales en el vector que contiene la imagen (mov byte [rdi],...), eliminando la necesidad de otros registros o estructuras intermedias.
-* **Conversión eficiente de tipos:** Se emplean instrucciones específicas como cvtsi2ss (entero a flotante) y cvtss2si (flotante a entero) para las conversiones individuales, que resultan más eficientes en SSE en contraste con las de x86 FPU, por ejemplo.
-* **Reutilización de registros:** Los registros se reutilizan para almacenar valores intermedios, como los cálculos de canales B, G, R o las operaciones de saturación, algo que es posible gracias al empaquetamiento.
-* **Uso de constantes predefinidas**: Las constantes como los pesos para escala de grises, los pesos del sepia o el valor máximo permitido (255.0), por ejemplo, están empaquetados y almacenados en memoria por defecto, lo que reduce los cálculos innecesarios al evitar cargar valores en cada registro en cada iteración. 
+## Objective of the Assignment  
+The main goals of this project are to apply knowledge of SSE registers to take advantage of data-packing instructions, and to implement at least **five optimizations** to improve performance.
 
+### Optimizations Applied  
+* **Memory address loading into registers:** Addresses are loaded into SSE registers to minimize memory access.  
+* **Efficient loop structure:** Loops use a decreasing counter and direct comparison (`jle .end_loop`), minimizing control operations.  
+* **Direct data manipulation:** Each filter accesses and modifies the image buffer directly (`mov byte [rdi],...`), removing unnecessary intermediates.  
+* **Efficient type conversion:** Instructions like `cvtsi2ss` and `cvtss2si` are used for int↔float conversion, which is more efficient in SSE than x87 FPU instructions.  
+* **Register reuse:** Registers store intermediate values (B, G, R channel calculations, saturation, etc.) thanks to packed-data processing.  
+* **Packed predefined constants:** Weights for grayscale, sepia, and values like 255.0 are stored packed in memory, avoiding repeated loading.
 
-### Requisitos:
-* Compilador C++: g++ (compatible con C++17 o superior).
-* Ensamblador: nasm., en caso de no tenerlo:
-                                 sudo apt update
-                                 sudo apt install nasm            
-* Sistema operativo: Linux o cualquier sistema compatible con herramientas GNU.
-* Dependiendo del sistema puede ser necesario instalar los paquetes para ver por    pantalla las imágenes generadas: 
+---
+
+## Requirements  
+* **C++ Compiler:** `g++` (C++17 or newer).  
+* **Assembler:** `nasm`. If not installed:  
+  ```bash
+  sudo apt update
+  sudo apt install nasm          
+* Operating System: Linux or any GNU-compatible system.
+* Tools to display output images:
 ```bash
 sudo apt update
 sudo apt install xdg-utils
 ```
-* En caso de que xdg-utils no funcione, puede ser necesario instalar eog:
+* If needed:
 ```bash
 sudo apt update
 sudo apt install eog
 ```
 
 
-Estructura del proyecto:
-* Carpeta `entradas/`: Contiene las imagenes a procesar.
-* Carpeta `salidas/`: Se guarda la imagen con 4 filtros aplicados (sepia, escala de grises, negativo y binarizado).
+Project Structure:
+* Folder`entradas/`: Folder containing BMP files to process.
+* Folder `salidas/`: Folder where filtered images (sepia, grayscale, invert, binarize) are saved.
 
-### Estructura del proyecto:
+### Project Structure:
 
 ```plaintext
 .
-├── entradas/           # Carpeta con las imagenes de entrada
-│   ├── entrada1.bmp    # Imagen BMP de prueba.
-│   ├── entrada2.bmp    # Imagen BMP de prueba.
-│   ├── entrada3.bmp    # Imagen BMP de prueba.
-│   └── entrada4.bmp    # Imagen BMP de prueba.
-├── salidas/            # Carpeta de salida con los cuatro filtros aplicados.
-├── build/              # Carpeta para archivos objeto (.o).
-├── bin/                # Carpeta para el ejecutable final.
-├── main.cpp            # Código principal en C++.
-├── sepia_filter.asm    # Código ensamblador para filtro sepia.
-├── grayscale_filter.asm   # Código ensamblador para filtro escala de grises.
-├── invert_filter.asm   # Código ensamblador para filtro negativo
-├── binarize_filter.asm   # Código ensamblador para filtro binarizador
-├── Makefile            # Script para compilar y ejecutar el proyecto.
-└── README.md           # Este archivo (Manual de uso).
+├── entradas/           # Folder with test inputs
+│   ├── entrada1.bmp    # Image BMP to test.
+│   ├── entrada2.bmp    # Image BMP to test.
+│   ├── entrada3.bmp    # Image BMP to test.
+│   └── entrada4.bmp    # Image BMP to test.
+├── salidas/            # Folder of the output for 4 filters applied.
+├── build/              # Folder for the object files(.o).
+├── bin/                # Folder for the final exec file.
+├── main.cpp            # Main code in C++.
+├── sepia_filter.asm    # Assembly code for sepia filter.
+├── grayscale_filter.asm   # Assembly code for gray scale filter.
+├── invert_filter.asm   # Assembly code for negative filter.
+├── binarize_filter.asm   # Assembly code for binarize filter.
+├── Makefile            # Script to compile and execute the project.
+└── README.md           # Manual for use(this file).
 ```
 
-### **Compilación y ejecución**
-1. **Preparación**
+### **Compilation and Execution**
+1. **Preparation**
 
-Asegúrese de tener los archivos BMP válidos la carpeta `entradas/`.
+Place valid BMP images inside the  `entradas/` folder.
 
-2. **Compilación**
-Para compilar el proyecto, utiliza el siguiente comando en el terminal:
+2. **Compilation**
 
 ```bash
 make clean
 make
 ```
 
-Esto generará el ejecutable en la carpeta `bin/`. Los archivos `.o` se generarán en la carpeta `build/`.
+The executable will be created in `bin/`. Object files will be placed in `build/`.
 
-3. **Ejecución**
+3. **Execution**
 
-Para aplicar los 4 filtros a la imagen especificada:
+To apply all four filters to an image:
 
 ```bash
 ./bin/filtros <nombre_imagen.bmp>
 ```
 
-Al hacer esto, el programa buscará la imagen BMP respectiva en la carpeta `entradas/`. Cargará la imagen y aplicará los cuatro filtros. Luego guardará las nuevas imagenes con los cuatros filtros aplicados en la carpeta `salidas/`. Finalmente, se abrirán automáticamente las imágenes creadas para que el usuario pueda visualizarlas directamente. Puede cambiar la imagen con la flecha derecha o izquierda.
+The program will:
 
-#### Ejemplo de uso
-Suponga que se quiere usar una de las imágenes de prueba incluidas, por ejemplo `entrada1.bmp`. Tras haber compilado el programa, puede ejecutarlo de la siguiente forma para aplicar los filtros a esta imagen respectiva.
+* Search for the image inside entradas/.
+
+* Load it and apply all four filters.
+
+* Save each processed image in salidas/.
+
+* Open all generated images automatically.
+
+#### Example
+Suppose you want to use one of the included test imagges like `entrada1.bmp`. After compiling, you can run the program like this to apply filters to that image.
 
 ```bash
 ./bin/filtros entrada1.bmp
 
 ```
 
-La salida del programa debería verse algo así:
+The output should be something like this:
 
 ```plaintext
 jerson@jerson-IdeaPad-3-15ITL05:~/Desktop/Ensambla/TP2$ ./bin/filtros entrada1.bmp
@@ -110,11 +120,11 @@ Abriendo imágenes generadas...
 
 ```
 
-También se mostrarán en pantalla las imagenes creadas, algo semejante a como se muestra a continuación:
+Images created will be displayed in screen, something similar to this:
 
 ![Ejecución](exec_example1.png)
 
-El usuario puede usar las flechas que aparecen a ambos lados para recorrer las cuatro imagenes creadas en la galería:
+Images will appear in a preview window, allowing navigation using left/right arrows:
 
 ![Ejecución](exec_example2.png)
 
@@ -123,13 +133,13 @@ El usuario puede usar las flechas que aparecen a ambos lados para recorrer las c
 ![Ejecución](exec_example4.png)
 
 
-### Notas importantes
-* **Formato de imagen:** Este programa solo funciona con imágenes en formato BMP. Si utilizas otros formatos (como PNG o JPG), deberás convertirlos previamente.
-* **Límites:** La implementación asume imágenes BMP con un encabezado de 54 bytes y 24 bits de color. Otros formatos BMP podrían no ser compatibles.
-* **Manejo de errores:** El programa genera mensajes de error claros en pantalla si no se encontró el archivo, no pudo abrise, no pudieron aplicarse los filtros, no pudieron crearse las nuevas imagenes o abrise, entre otros.
+### Important Notes
+* **Image format:** Only BMP images are supported. Convert PNG/JPG images before using them.
+* **Limitations:** Only BMPs with a 54-byte header and 24-bit color depth are supported.
+* **Error Handling:** Clear warnings are displayed if the file doesn't exist, cannot be opened, filters fail, or output images cannot be created.
 
-# Referencias
-Las imágenes de prueba fueron obtenidas de los siguientes enlaces:
+# References
+Sample BMP images obtained from:
 * entrada1.bmp: https://filesampleshub.com/format/image/bmp
 * entrada2.bmp: https://samples-files.com/sample-bmp-file/
 * entrada3.bmp: https://filesamples.com/formats/bmp
