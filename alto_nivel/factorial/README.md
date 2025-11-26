@@ -6,4 +6,4 @@
 
     ## Description
 
-   In this excersise a function will be implemented, which recieves a number and calculates the factorial of the number.    
+       In this excersise a function will be implemented, which recieves a number and calculates the factorial of the number.    
