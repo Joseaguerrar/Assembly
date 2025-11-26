@@ -1,67 +1,68 @@
-# Qué es una vulnerabilidad Buffer Overflow?
-Un buffer overflow ocurre cuando se escribe más información de la que un buffer puede almacenar, causando que los datos excedan el espacio asignado. Esto puede sobrescribir áreas adyacentes de la memoria, incluyendo direcciones de retorno o variables importantes.
+# What Is a Buffer Overflow Vulnerability?
+A buffer overflow occurs when more information is written than a buffer can store, causing the data to exceed the allocated space. This can overwrite adjacent memory areas, including return addresses or important variables.
 
-## Implicaciones
+## Implications
 
-1. Ejecución de código arbitrario: un atacante puede modificar la dirección de retorno para ejecutar funciones no autorizadas (como secretFunction en el primer ejemplo).
+1. Arbitrary code execution: an attacker can modify the return address to execute unauthorized functions (such as secretFunction in the first example).
 
-2. Corromper datos sensibles: sobrescribir variables importantes en la pila.
+2. Corruption of sensitive data: overwriting important variables on the stack.
 
-3. Fallos inesperados del programa:  el programa puede fallar al acceder a memoria no válida.
+3. Unexpected program crashes: the program may crash when accessing invalid memory.
 
-## Ejemplos y análisis
+## Examples and Analysis
 
-### Ejemplo 1: Código con función vulnerable
+### Example 1: Code With a Vulnerable Function
 
-Este programa tiene una función vulnerable llamada vuln, que utiliza un buffer de tamaño fijo (array[400]) para almacenar el texto ingresado por el usuario. Si se compila sin protecciones de pila, un atacante puede explotar esta vulnerabilidad para sobrescribir la dirección de retorno de la función y ejecutar código no autorizado, como la función secretFunction. El programa demuestra cómo un input malicioso puede desencadenar acciones no deseadas.
+This program has a vulnerable function called *vuln*, which uses a fixed-size buffer (array[400]) to store the text entered by the user. If compiled without stack protections, an attacker can exploit this vulnerability to overwrite the function’s return address and execute unauthorized code, such as the *secretFunction*. The program demonstrates how malicious input can trigger unwanted actions.
 
-1. Vulnerabilidad:
+1. Vulnerability:
 
->Aunque fgets controla el tamaño máximo de entrada, la función vuln usa un buffer (array[400]) en la pila, que podría ser desbordado si se compila sin protecciones como stack-protector o NX-bit. Esto puede permitir a un atacante modificar la dirección de retorno y ejecutar la función secretFunction.
+>Although *fgets* controls the maximum input size, the *vuln* function uses a buffer (array[400]) on the stack, which could be overflowed if compiled without protections like stack-protector or NX-bit. This may allow an attacker to modify the return address and execute *secretFunction*.
 
-2. Implicaciones:
+2. Implications:
 
->Si un atacante introduce datos cuidadosamente diseñados, podría controlar la ejecución y desencadenar secretFunction.
+>If an attacker provides carefully crafted data, they could control execution and trigger *secretFunction*.
 
-### Ejemplo 2: Código de validación de número de serie
+### Example 2: Serial Number Validation Code
 
-Este programa valida un número de serie ingresado por el usuario. Contiene una vulnerabilidad en la función validarNumeroDeSerie, ya que utiliza un buffer de tamaño fijo (numeroDeSerie[24]) sin verificar que el input no exceda este tamaño. Si el usuario ingresa más de 24 caracteres, se sobrescriben áreas de la memoria. Este desbordamiento podría explotarse para alterar datos o incluso el flujo del programa.
+This program validates a serial number entered by the user. It contains a vulnerability in the *validarNumeroDeSerie* function, since it uses a fixed-size buffer (numeroDeSerie[24]) without verifying that the input does not exceed this size. If the user enters more than 24 characters, adjacent memory areas are overwritten. This overflow could be exploited to alter data or even program flow.
 
-1. Vulnerabilidad:
+1. Vulnerability:
 
->La función fscanf(stdin, "%s", numeroDeSerie) en validarNumeroDeSerie no verifica si el número de caracteres ingresados excede el tamaño del buffer numeroDeSerie[24].
+>The function `fscanf(stdin, "%s", numeroDeSerie)` in *validarNumeroDeSerie* does not check whether the number of characters entered exceeds the buffer size numeroDeSerie[24].
 
->Esto permite sobrescribir la memoria adyacente si el usuario ingresa más de 24 caracteres.
+>This allows overwriting adjacent memory if the user enters more than 24 characters.
 
-2. Implicaciones:
+2. Implications:
 
->Un atacante puede inyectar datos para alterar variables o controlar el flujo del programa.
+>An attacker can inject data to alter variables or control program flow.
 
-### Prevención de vulnerabilidades Buffer Overflow
-1. Mejoras en el código:
->Usar funciones seguras como fgets con límites apropiados.
+### Preventing Buffer Overflow Vulnerabilities
 
-> Verificar manualmente la longitud del input antes de procesarlo.
+1. Code improvements:
+>Use safe functions such as *fgets* with proper limits.
 
-> Implementar control de errores en cada operación que involucre memoria.
+>Manually check input length before processing it.
 
-2. Uso de herramientas de análisis:
-> Usar herramientas como Valgring o ASan (Address Sanitizer) para detectar posibles errores de buffer overflow.
+>Implement error handling in every memory-related operation.
 
-## Contexto de ensamblador y arquitectura
+2. Use of analysis tools:
+>Use tools like Valgrind or ASan (Address Sanitizer) to detect potential buffer overflow issues.
 
-En el contexto de este curso:
+## Assembly and Architecture Context
 
-1. Detección temprana
+In the context of this course:
 
->Con conocimientos de ensamblador, es posible analizar la disposición de la pila y detectar posibles áreas donde los datos excedan el espacio asignado o los límites.
+1. Early detection
 
-2. Prevención a nivel bajo
+>With assembly knowledge, it is possible to analyze the stack layout and detect potential areas where data may exceed allocated space or boundaries.
 
-> Usar estructuras de control de pila en ensamblador para garantizar que los datos no sobreescriban áreas críticas.
+2. Low-level prevention
 
->Implementar verificaciones manuales en rutinas que manipulan buffers.
+>Use stack control structures in assembly to ensure data does not overwrite critical areas.
 
-3. Monitoreo de actividad
+>Implement manual checks in routines that manipulate buffers.
 
->Monitorear registros como el puntero de pila (RSP) para detectar anomalías en tiempo de ejecución.
+3. Activity monitoring
+
+>Monitor registers such as the stack pointer (RSP) to detect anomalies at runtime.
