@@ -1,53 +1,53 @@
-# Nombre del ejecutable 
+# Name of the executable 
 TARGET = bin/program
 
-# Directorios
+# Directories
 BUILD_DIR = build
 BIN_DIR = bin
 
-# Archivos fuente
+# Source files
 CPP_SRC = main.cpp
 ASM_SRC = timestamp.asm 
 
-# Archivos objeto
+# Object files
 CPP_OBJ = $(BUILD_DIR)/main.o
 ASM_OBJ = $(BUILD_DIR)/timestamp.o 
 
-# Compiladores
+# Compilers
 CXX = g++
 ASM = nasm
 
-# Opciones de compilación
+# Compilation options
 CXXFLAGS = -std=c++17 -Wall -O2
 ASMFLAGS = -f elf64
 
-# Regla por defecto
+# Default rule
 all: $(BIN_DIR) $(BUILD_DIR) $(TARGET)
 
-# Regla para crear el ejecutable
+# Rule to create the executable
 $(TARGET): $(CPP_OBJ) $(ASM_OBJ)
 	$(CXX) -no-pie -o $(TARGET) $(CPP_OBJ) $(ASM_OBJ)
 
-# Regla para compilar el archivo C++
+# Rule to compile the C++ file
 $(CPP_OBJ): $(CPP_SRC) | $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) -c $(CPP_SRC) -o $(CPP_OBJ)
 
-# Regla para compilar cada archivo ASM
+# Rule to compile each ASM file
 $(BUILD_DIR)/%.o: %.asm | $(BUILD_DIR)
 	$(ASM) $(ASMFLAGS) $< -o $@
 
-# Regla para crear el directorio de objetos
+# Rule to create the object directory
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
-# Regla para crear el directorio del ejecutable
+# Rule to create the binary directory
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 
-# Limpieza de archivos objeto, ejecutable y directorios
+# Cleanup rule for object files, executable, and directories
 clean:
 	rm -rf $(BUILD_DIR) $(BIN_DIR)
 
-# Regla para compilar y ejecutar el programa
+# Rule to compile and run the program
 run: all
 	./$(TARGET)
