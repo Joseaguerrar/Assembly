@@ -1,6 +1,6 @@
-## Resta de la vida
+## Subtract life
 
-Este ejemplo calcula la resta de la vida de un jugador.
+This example claculates the subtraction of the players life
 
-Para compilar, ejecutar `make` en la terminal.  
-Para ejecutar, ejecutar `./main`.
+To compile, execute `make` in the terminal.  
+To execute, execute `./main`.
