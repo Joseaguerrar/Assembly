@@ -2,66 +2,66 @@
 #include <stdio.h>
 #include <string.h>
 
-// Función que valida un número de serie
+// Function that validates a serial number
 int esNumeroDeSerieValido(char *numeroDeSerie) {
-    size_t longitud = strlen(numeroDeSerie);  // Obtiene la longitud del número de serie
-    unsigned sumaAscii = 0;                   // Acumulador para la suma de los valores ASCII de los caracteres
+    size_t longitud = strlen(numeroDeSerie);  // Gets the length of the serial number
+    unsigned sumaAscii = 0;                   // Accumulator for the sum of ASCII values of the characters
     size_t i;
 
-    // El número de serie debe tener al menos 10 caracteres
+    // The serial number must have at least 10 characters
     if (longitud < 10)
-        return 0;  // Retorna 0 si la longitud es menor a 10
+        return 0;  // Returns 0 if the length is less than 10
 
-    // Recorre cada carácter del número de serie
+    // Iterates through each character of the serial number
     for (i = 0; i < longitud; i++) {
-        // El número de serie solo puede contener caracteres entre '0' y 'z'
+        // The serial number may only contain characters between '0' and 'z'
         if ((numeroDeSerie[i] < '0') || (numeroDeSerie[i] > 'z'))
-            return 0;  // Retorna 0 si encuentra un carácter fuera del rango permitido
+            return 0;  // Returns 0 if it finds a character outside the allowed range
 
-        // Suma el valor ASCII del carácter al total
+        // Adds the ASCII value of the character to the total
         sumaAscii += numeroDeSerie[i];
     }
 
-    // Verifica si la suma de los valores ASCII es divisible por 853 y el residuo es 83
+    // Checks whether the sum of ASCII values is divisible by 853 and the remainder is 83
     if (sumaAscii % 853 == 83)
-        return 1;  // Retorna 1 si el número de serie es válido
+        return 1;  // Returns 1 if the serial number is valid
 
-    return 0;  // Si no cumple las condiciones, retorna 0
+    return 0;  // If it does not meet the conditions, returns 0
 }
 
-// Función que valida el número de serie ingresado por el usuario
+// Function that validates the serial number entered by the user
 int validarNumeroDeSerie() {
-    char numeroDeSerie[24];  // Arreglo para almacenar el número de serie ingresado
+    char numeroDeSerie[24];  // Array to store the entered serial number
 
-    // Lee el número de serie desde la entrada estándar
+    // Reads the serial number from standard input
     fscanf(stdin, "%s", numeroDeSerie);
 
-    // Llama a la función de validación
+    // Calls the validation function
     if (esNumeroDeSerieValido(numeroDeSerie))
-        return 1;  // Retorna 1 si el número de serie es válido
+        return 1;  // Returns 1 if the serial number is valid
     else
-        return 0;  // Retorna 0 si el número de serie es inválido
+        return 0;  // Returns 0 if the serial number is invalid
 }
 
-// Función que realiza una acción cuando el número de serie es válido
+// Function executed when the serial number is valid
 void realizarAccionesValidas() {
     printf("¡El número de serie es válido!\n");
-    // Aquí se podrían realizar más acciones restringidas a números de serie válidos
-    exit(0);  // Termina el programa con un código de salida 0 (éxito)
+    // More restricted actions for valid serial numbers could be performed here
+    exit(0);  // Ends the program with exit code 0 (success)
 }
 
-// Función que realiza una acción cuando el número de serie es inválido
+// Function executed when the serial number is invalid
 void realizarAccionesInvalidas() {
     printf("¡Número de serie inválido!\nSaliendo del programa...\n");
-    exit(1);  // Termina el programa con un código de salida 1 (error)
+    exit(1);  // Ends the program with exit code 1 (error)
 }
 
 int main(int argc, char *argv[]) {
-    // Valida el número de serie
+    // Validates the serial number
     if (validarNumeroDeSerie())
-        realizarAccionesValidas();  // Si es válido, realiza las acciones válidas
+        realizarAccionesValidas();  // If valid, performs the valid actions
     else
-        realizarAccionesInvalidas();  // Si es inválido, realiza las acciones inválidas
+        realizarAccionesInvalidas();  // If invalid, performs the invalid actions
 
     return 0;
 }
