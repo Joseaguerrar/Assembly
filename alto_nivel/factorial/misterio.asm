@@ -2,7 +2,7 @@ section .note.GNU-stack noalloc noexec nowrite progbits
 
 section .text
 global mistery
-misterio:
+mistery:
     push rdi
     call _mistery
     pop rax
@@ -33,3 +33,4 @@ _mistery:
         pop rbp
 
         ret
+
