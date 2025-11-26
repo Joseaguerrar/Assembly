@@ -10,7 +10,7 @@ int main() {
     int64_t new_life = subtract_life(life, damage, operation);
     std::cout << "New life: " << new_life << std::endl;
 
-    operation = 2; // Cambiar a sumar
+    operation = 2; // Change to addition
     new_life = subtract_life(new_life, damage, operation);
     std::cout << "New life after healing: " << new_life << std::endl;
 
