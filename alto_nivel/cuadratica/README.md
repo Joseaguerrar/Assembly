@@ -6,4 +6,4 @@
 
     ## Description
 
-    In this excersise a function will be implemented, wich recieves a number and calculates the cuadratic formula of that number.
+    In this excersise a function will be implemented, which recieves a number and calculates the cuadratic formula of that number.
