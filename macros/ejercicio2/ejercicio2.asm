@@ -1,11 +1,11 @@
-; Archivo: ejercicio2.asm
+; File: ejercicio2.asm
 section .data
-    ; Declaración de datos
-    buffer db "Alfabeto generado: ", 0
+    ; Data declarations
+    buffer db "Generated alphabet: ", 0
     buflen equ $ - buffer
 
 section .bss
-    alfa resb 27 ; Espacio para el alfabeto generado (máximo 26 letras + null terminator)
+    alfa resb 27 ; Space for the generated alphabet (max 26 letters + null terminator)
 
 section .text
 global _start
@@ -30,7 +30,7 @@ global _start
         %define LetraTipo %3
     %endif
 
-    ; Generar el alfabeto parcial
+    ; Generate the partial alphabet
     section .data
     alfa db
     %assign i LetraInicial
@@ -44,29 +44,29 @@ global _start
         db i + offset
         %assign i i + 1
     %endrep
-    db 0 ; Null-terminator para cadenas
+    db 0 ; Null terminator for strings
 %endmacro
 
-; Código principal
+; Main code
 _start:
-    ; Usa la macro para generar un alfabeto parcial
-    CreaAlfa 'B', 'F', 1 ; Genera letras de 'b' a 'f'
+    ; Use the macro to generate a partial alphabet
+    CreaAlfa 'B', 'F', 1 ; Generates letters from 'b' to 'f'
 
-    ; Escribir mensaje en pantalla
+    ; Write message to screen
     mov rax, 1          ; syscall: write
     mov rdi, 1          ; file descriptor: stdout
-    mov rsi, buffer     ; dirección del mensaje
-    mov rdx, buflen     ; longitud del mensaje
+    mov rsi, buffer     ; message address
+    mov rdx, buflen     ; message length
     syscall
 
-    ; Escribir el alfabeto generado
+    ; Write the generated alphabet
     mov rax, 1          ; syscall: write
     mov rdi, 1          ; file descriptor: stdout
-    mov rsi, alfa       ; dirección del alfabeto generado
-    mov rdx, 6          ; longitud del alfabeto ('B' a 'F' = 6 caracteres)
+    mov rsi, alfa       ; generated alphabet address
+    mov rdx, 6          ; alphabet length ('B' to 'F' = 6 characters)
     syscall
 
-    ; Salir del programa
+    ; Exit the program
     mov rax, 60         ; syscall: exit
     xor rdi, rdi        ; exit code 0
     syscall
