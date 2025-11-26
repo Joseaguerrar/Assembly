@@ -1,9 +1,9 @@
     # Cuadratica
 
-    ## Instrucciones
+    ## Instructions
 
-    1. Crear una carpeta en la carpeta home de tu usuario con el nombre cuadratica.
+    1. Create a folder in folder home from your user with the name cuadratica.
 
-    ## Descripción
+    ## Description
 
-    En este ejercicio se va a implementar una función que recibe un número y calcula la fórmula cuadratica de ese número.
+    In this excersise a function will be implemented, wich recieves a number and calculates the cuadratic formula from that number.
