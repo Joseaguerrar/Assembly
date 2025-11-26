@@ -1,5 +1,5 @@
 section.data
-    ;Matriz de 10x10 para números del 2 al 101
+    ; 10x10 matrix for numbers from 2 to 101
 matriz     dd  2, 3, 4, 5, 6, 7, 8, 9, 10, 11
            dd  12, 13, 14, 15, 16, 17, 18, 19, 20, 21
            dd  22, 23, 24, 25, 26, 27, 28, 29, 30, 31
@@ -10,71 +10,70 @@ matriz     dd  2, 3, 4, 5, 6, 7, 8, 9, 10, 11
            dd  72, 73, 74, 75, 76, 77, 78, 79, 80, 81
            dd  82, 83, 84, 85, 86, 87, 88, 89, 90, 91
            dd  92, 93, 94, 95, 96, 97, 98, 99, 100, 101
-; Vector para almacenar los números primos encontrados
-resultado resd 25 ;que es suficiente para los primos menores o iguales a 101
 
-;variable para contar la cantidad de primos encontrados
+; Vector to store the prime numbers found
+resultado resd 25    ; Enough space for primes ≤ 101
+
+; Variable to count how many primes were found
 num_primos dd 0
 
 section .bss
-; Variable para el índice
+; Variable for the index
 idx resd 1
 
 section .text
     global _start
 _start:
-    ; Llamar al método para ejecutar la criba de Eratóstenes
+    ; Call the method that runs the Sieve of Eratosthenes
     call criba_eratostenes
 
-    ; Finalizar el programa y devolver control al SO
-    mov eax, 60 ; sys_exit
+    ; End the program and return control to the OS
+    mov eax, 60          ; sys_exit
     xor edi, edi
     syscall
 
 criba_eratostenes:
-    ;Inicializar variables 
-    xor ecx, ecx    ;índice de la matriz
-    xor ebx, ebx    ;índice del resultado de primos
-    xor esi, esi    ;Número actual en la criba
+    ; Initialize variables 
+    xor ecx, ecx        ; Matrix index
+    xor ebx, ebx        ; Result vector index (primes)
+    xor esi, esi        ; Current number in the sieve
 
-    ; Empezar la criba
+    ; Start the sieve
 criba_loop:
-    ; Cargar el número en la posición actual de la matriz
+    ; Load the number at the current matrix position
     mov eax, [matriz + ecx*4]
 
-    ; Si el número es 0, ha sido marcado como no primo, continuar con el siguiente
+    ; If the number is 0, it has been marked as non-prime
     cmp eax, 0
     je siguiente_numero
 
-    ; Si el número es mayor que la raíz de 101, paramos
-
-    cmp eax, 11 ;la raíz de 101 es aprox 10
+    ; If the number is greater than the square root of 101, stop
+    cmp eax, 11          ; Square root of 101 ≈ 10
     jg almacenar_primo
 
-
-    ;Marcar los múltiplos del número actual como no primos mov esi, ecx
+    ; Mark multiples of the current number as non-prime
 marcar_multiplos:
-    ;Incrementar el índice para obtener el múltiplo
+    ; Increase the index to get the next multiple
     add esi, eax
-    cmp esi, 99 ;No sobrepasar el tamaño de la matriz
+    cmp esi, 99          ; Do not exceed the matrix size
     jg fin_marcar
 
-    ;Marcar el múltiplo como no primo(poner a 0)
+    ; Mark the multiple as non-prime (set to 0)
     mov dword[matriz + esi*4], 0
     jmp marcar_multiplos
 
 fin_marcar:
-    ;Almacenar el número primo encontrado
+    ; Store the prime number found
 almacenar_primo:
     mov eax, [matriz + ecx*4]
     mov [resultado + ebx*4], eax
-    inc ebx     ;Incrementar índice del resultado
-    mov [num_primos], ebx   ;Actualizar primos encontrados
+    inc ebx                     ; Increase the index for results
+    mov [num_primos], ebx       ; Update the count of primes found
 
-    ;siguiente número en la matriz
+    ; Go to the next number in the matrix
 siguiente_numero:
     inc ecx
     cmp ecx, 100
-    jl cripa_loop
+    jl cripa_loop    ; (comment only: typo in original, left unchanged)
 
     ret
