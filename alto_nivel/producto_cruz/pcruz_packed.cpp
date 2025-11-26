@@ -1,4 +1,4 @@
-// Jose Guerra (C33510)(50%) y Jerson Bonilla (C31225)(50%)
+// Jose Guerra (C33510)(50%) and Jerson Bonilla (C31225)(50%)
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -10,7 +10,7 @@ int main () {
     std::ofstream archivo_salida("resultados.txt");
 
     if (!archivo_entrada.is_open() || !archivo_salida.is_open()){
-        std::cerr << "Error al abrir los archivos." << std::endl;
+        std::cerr << "Error opening files." << std::endl;
         return 1;
     }
 
@@ -23,7 +23,7 @@ int main () {
     float* z2 = (float*)aligned_alloc(32, VECTOR_SIZE * sizeof(float));
 
     if (x1 == nullptr || y1 == nullptr || z1 == nullptr || x2 == nullptr || y2 == nullptr || z2 == nullptr) {
-        std::cerr << "Error en la asignación de memoria" << std::endl;
+        std::cerr << "Memory allocation error" << std::endl;
         return 1;
     }
 
@@ -32,7 +32,7 @@ int main () {
     while (true) {
         bool datos_completos = true;
 
-        // Leer un bloque de 4 vectores
+        // Read a block of 4 vectors
         for (int i = 0; i < VECTOR_SIZE; ++i) {
             if (!(archivo_entrada >> x1[i] >> y1[i] >> z1[i] >> x2[i] >> y2[i] >> z2[i])) {
                 datos_completos = false;
@@ -40,19 +40,20 @@ int main () {
             }
         }
 
-        // Verificar si se leyó un bloque completo de 4 vectores
+        // Check if a complete block of 4 vectors was read
         if (!datos_completos) {
             break;
         }
 
         vector_count++;
 
-        // Llamar a la función ensamblador y recibir el puntero de resultados
+        // Call the assembly function and receive the pointer to the results
         float* resultados = producto_cruz_packed(x1, y1, z1, x2, y2, z2);
 
-        // Desempaquetar los resultados de c1, c2, c3 (componentes x, y, z)
+        // Unpack the results of c1, c2, c3 (components x, y, z)
         for (int i = 0; i < VECTOR_SIZE; ++i) {
-            archivo_salida << resultados[i] << ", " << resultados[i + VECTOR_SIZE] << ", " << resultados[i + 2 * VECTOR_SIZE] << std::endl;
+            archivo_salida << resultados[i] << ", " << resultados[i + VECTOR_SIZE] 
+                           << ", " << resultados[i + 2 * VECTOR_SIZE] << std::endl;
         }
     }
 
